@@ -1,8 +1,12 @@
 import { LessonList } from "@/components/LessonList";
+import { getCompletedLessonIds } from "@/lib/data/progress";
 import { getLessonSummaries } from "@/lib/data/lessons";
 
 export default async function Home() {
-  const lessons = await getLessonSummaries();
+  const [lessons, completedLessonIds] = await Promise.all([
+    getLessonSummaries(),
+    getCompletedLessonIds(),
+  ]);
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-6 py-12 sm:px-10">
@@ -16,7 +20,7 @@ export default async function Home() {
           a rigorous critique.
         </p>
       </header>
-      <LessonList lessons={lessons} />
+      <LessonList lessons={lessons} completedLessonIds={completedLessonIds} />
     </div>
   );
 }
