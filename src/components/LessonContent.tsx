@@ -1,5 +1,7 @@
 import ReactMarkdown from "react-markdown";
 
+import { GoldRule } from "@/components/ui/GoldRule";
+import { Panel } from "@/components/ui/Panel";
 import type { SectionView } from "@/lib/types";
 
 const KIND_LABEL: Record<SectionView["kind"], string> = {
@@ -12,30 +14,42 @@ const KIND_LABEL: Record<SectionView["kind"], string> = {
 export function LessonContent({ sections }: { sections: SectionView[] }) {
   return (
     <div className="flex flex-col gap-8">
-      {sections.map((section) => (
-        <section
-          key={section.id}
-          className={
-            section.kind === "CLASSICAL_EXAMPLE"
-              ? "rounded-lg border-l-4 border-amber-400 bg-amber-50 p-5 dark:border-amber-500/60 dark:bg-amber-950/20"
-              : section.kind === "SUMMARY"
-                ? "rounded-lg border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900/50"
-                : ""
-          }
-        >
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
-            {KIND_LABEL[section.kind]}
-          </p>
-          {section.heading && (
-            <h3 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-              {section.heading}
-            </h3>
-          )}
-          <div className="markdown-content text-zinc-700 dark:text-zinc-300">
-            <ReactMarkdown>{section.content}</ReactMarkdown>
+      {sections.map((section, i) => {
+        const body = (
+          <>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted">
+              {KIND_LABEL[section.kind]}
+            </p>
+            {section.heading && (
+              <h3 className="font-heading mb-2 text-2xl font-semibold text-foreground">
+                {section.heading}
+              </h3>
+            )}
+            <div className="markdown-content text-foreground">
+              <ReactMarkdown>{section.content}</ReactMarkdown>
+            </div>
+          </>
+        );
+
+        return (
+          <div key={section.id} className="flex flex-col gap-8">
+            {i > 0 && <GoldRule />}
+            {section.kind === "CLASSICAL_EXAMPLE" ? (
+              <Panel className="ml-4 border-l-4 border-l-gold p-5 sm:ml-8">{body}</Panel>
+            ) : (
+              <section
+                className={
+                  section.kind === "SUMMARY"
+                    ? "rounded-lg border border-border bg-surface p-5"
+                    : ""
+                }
+              >
+                {body}
+              </section>
+            )}
           </div>
-        </section>
-      ))}
+        );
+      })}
     </div>
   );
 }

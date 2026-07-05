@@ -22,20 +22,18 @@ export default async function LessonPage({
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-12 sm:px-10">
       <div>
-        <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+        <Link href="/" className="text-sm text-muted hover:text-gold">
           ← All lessons
         </Link>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="font-display mt-3 text-3xl tracking-wide text-foreground">
           {lesson.title}
         </h1>
-        {lesson.subtitle && (
-          <p className="mt-1 text-zinc-500 dark:text-zinc-400">{lesson.subtitle}</p>
-        )}
+        {lesson.subtitle && <p className="mt-1 text-muted">{lesson.subtitle}</p>}
         <div className="mt-3 flex flex-wrap gap-1.5">
           {lesson.devices.map((device) => (
             <span
               key={device.slug}
-              className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
+              className="rounded-full border border-border bg-surface px-2.5 py-0.5 text-xs font-medium text-muted"
             >
               {device.name}
             </span>
@@ -46,7 +44,7 @@ export default async function LessonPage({
       <LessonContent sections={lesson.sections} />
 
       <div className="flex flex-col gap-6">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
+        <h2 className="font-heading text-2xl font-semibold text-foreground">
           Put it into practice
         </h2>
         {lesson.prompts.map((prompt) => (
