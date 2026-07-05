@@ -1,8 +1,6 @@
-import { cookies } from "next/headers";
-
 import { prisma } from "@/lib/db";
 import type { Evaluation } from "@/lib/evaluation/schema";
-import { SESSION_COOKIE } from "@/lib/session";
+import { getIdentity } from "@/lib/identity";
 
 export interface SubmissionView {
   id: string;
@@ -11,17 +9,14 @@ export interface SubmissionView {
   submittedAt: string;
 }
 
-async function getSessionId(): Promise<string | null> {
-  const store = await cookies();
-  return store.get(SESSION_COOKIE)?.value ?? null;
-}
-
 export async function getCompletedLessonIds(): Promise<string[]> {
-  const sessionId = await getSessionId();
-  if (!sessionId) return [];
+  const identity = await getIdentity();
+  if (!identity) return [];
+
+  const where = identity.type === "user" ? { userId: identity.id } : { sessionId: identity.id };
 
   const rows = await prisma.completedLesson.findMany({
-    where: { sessionId },
+    where,
     select: { lessonId: true },
   });
   return rows.map((r) => r.lessonId);
@@ -30,11 +25,16 @@ export async function getCompletedLessonIds(): Promise<string[]> {
 export async function getSubmissionHistoryByPrompt(
   promptIds: string[]
 ): Promise<Record<string, SubmissionView[]>> {
-  const sessionId = await getSessionId();
-  if (!sessionId || promptIds.length === 0) return {};
+  const identity = await getIdentity();
+  if (!identity || promptIds.length === 0) return {};
+
+  const where =
+    identity.type === "user"
+      ? { userId: identity.id, promptId: { in: promptIds } }
+      : { sessionId: identity.id, promptId: { in: promptIds } };
 
   const rows = await prisma.submission.findMany({
-    where: { sessionId, promptId: { in: promptIds } },
+    where,
     orderBy: { submittedAt: "desc" },
   });
 

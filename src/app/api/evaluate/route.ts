@@ -1,11 +1,10 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { prisma } from "@/lib/db";
 import { getPromptWithContext } from "@/lib/data/lessons";
 import { evaluateSubmission } from "@/lib/claude";
-import { SESSION_COOKIE } from "@/lib/session";
+import { getIdentity } from "@/lib/identity";
 
 const requestSchema = z.object({
   promptId: z.string().min(1),
@@ -51,23 +50,27 @@ export async function POST(request: Request) {
 
   let lessonCompleted: boolean | undefined;
   try {
-    const store = await cookies();
-    const sessionId = store.get(SESSION_COOKIE)?.value;
+    const identity = await getIdentity();
 
-    if (sessionId) {
-      await prisma.session.upsert({
-        where: { id: sessionId },
-        create: { id: sessionId },
-        update: { lastSeenAt: new Date() },
-      });
+    if (identity) {
+      if (identity.type === "session") {
+        await prisma.session.upsert({
+          where: { id: identity.id },
+          create: { id: identity.id },
+          update: { lastSeenAt: new Date() },
+        });
+      }
+
+      const identityWhere =
+        identity.type === "user" ? { userId: identity.id } : { sessionId: identity.id };
 
       await prisma.submission.create({
-        data: { sessionId, promptId, text: submission, evaluation },
+        data: { ...identityWhere, promptId, text: submission, evaluation },
       });
 
       const lessonPromptIds = prompt.lesson.prompts.map((p) => p.id);
       const submitted = await prisma.submission.findMany({
-        where: { sessionId, promptId: { in: lessonPromptIds } },
+        where: { ...identityWhere, promptId: { in: lessonPromptIds } },
         distinct: ["promptId"],
         select: { promptId: true },
       });
@@ -75,11 +78,19 @@ export async function POST(request: Request) {
       lessonCompleted = lessonPromptIds.every((id) => submittedIds.has(id));
 
       if (lessonCompleted) {
-        await prisma.completedLesson.upsert({
-          where: { sessionId_lessonId: { sessionId, lessonId: prompt.lesson.id } },
-          create: { sessionId, lessonId: prompt.lesson.id },
-          update: {},
-        });
+        if (identity.type === "user") {
+          await prisma.completedLesson.upsert({
+            where: { userId_lessonId: { userId: identity.id, lessonId: prompt.lesson.id } },
+            create: { userId: identity.id, lessonId: prompt.lesson.id },
+            update: {},
+          });
+        } else {
+          await prisma.completedLesson.upsert({
+            where: { sessionId_lessonId: { sessionId: identity.id, lessonId: prompt.lesson.id } },
+            create: { sessionId: identity.id, lessonId: prompt.lesson.id },
+            update: {},
+          });
+        }
       }
     }
   } catch (error) {
