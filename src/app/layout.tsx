@@ -44,7 +44,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <div>
+        <header>
           <div className="flex items-center justify-between gap-4 px-6 py-4">
             <div className="flex items-center gap-2 text-foreground">
               <ColumnGlyph className="text-gold" />
@@ -53,7 +53,7 @@ export default function RootLayout({
             <AuthHeader />
           </div>
           <GoldRule />
-        </div>
+        </header>
         {children}
       </body>
     </html>

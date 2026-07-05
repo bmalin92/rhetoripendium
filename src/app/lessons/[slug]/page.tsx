@@ -25,7 +25,7 @@ export default async function LessonPage({
         <Link href="/" className="text-sm text-muted hover:text-gold">
           ← All lessons
         </Link>
-        <h1 className="font-display mt-3 text-3xl tracking-wide text-foreground">
+        <h1 className="font-heading mt-3 text-3xl tracking-wide text-foreground">
           {lesson.title}
         </h1>
         {lesson.subtitle && <p className="mt-1 text-muted">{lesson.subtitle}</p>}
