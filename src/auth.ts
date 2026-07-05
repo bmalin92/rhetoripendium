@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
 import { prisma } from "@/lib/db";
+import { mergeAnonymousProgress } from "@/lib/auth/merge-progress";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
@@ -25,6 +26,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         token.userId = dbUser.id;
+
+        await mergeAnonymousProgress(dbUser.id);
       }
 
       return token;
