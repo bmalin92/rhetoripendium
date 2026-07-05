@@ -89,6 +89,7 @@ export async function getPromptWithContext(promptId: string) {
       lesson: {
         include: {
           devices: { include: { device: true } },
+          prompts: { select: { id: true } },
         },
       },
     },

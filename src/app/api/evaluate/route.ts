@@ -1,8 +1,11 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { prisma } from "@/lib/db";
 import { getPromptWithContext } from "@/lib/data/lessons";
 import { evaluateSubmission } from "@/lib/claude";
+import { SESSION_COOKIE } from "@/lib/session";
 
 const requestSchema = z.object({
   promptId: z.string().min(1),
@@ -24,8 +27,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
+  let evaluation;
   try {
-    const evaluation = await evaluateSubmission({
+    evaluation = await evaluateSubmission({
       lessonTitle: prompt.lesson.title,
       deviceNames: prompt.lesson.devices.map((ld) => ld.device.name),
       promptText: prompt.prompt,
@@ -37,8 +41,6 @@ export async function POST(request: Request) {
       })),
       submission,
     });
-
-    return NextResponse.json({ evaluation });
   } catch (error) {
     console.error("Evaluation failed", error);
     return NextResponse.json(
@@ -46,4 +48,46 @@ export async function POST(request: Request) {
       { status: 502 }
     );
   }
+
+  let lessonCompleted: boolean | undefined;
+  try {
+    const store = await cookies();
+    const sessionId = store.get(SESSION_COOKIE)?.value;
+
+    if (sessionId) {
+      await prisma.session.upsert({
+        where: { id: sessionId },
+        create: { id: sessionId },
+        update: { lastSeenAt: new Date() },
+      });
+
+      await prisma.submission.create({
+        data: { sessionId, promptId, text: submission, evaluation },
+      });
+
+      const lessonPromptIds = prompt.lesson.prompts.map((p) => p.id);
+      const submitted = await prisma.submission.findMany({
+        where: { sessionId, promptId: { in: lessonPromptIds } },
+        distinct: ["promptId"],
+        select: { promptId: true },
+      });
+      const submittedIds = new Set(submitted.map((s) => s.promptId));
+      lessonCompleted = lessonPromptIds.every((id) => submittedIds.has(id));
+
+      if (lessonCompleted) {
+        await prisma.completedLesson.upsert({
+          where: { sessionId_lessonId: { sessionId, lessonId: prompt.lesson.id } },
+          create: { sessionId, lessonId: prompt.lesson.id },
+          update: {},
+        });
+      }
+    }
+  } catch (error) {
+    // A transient DB hiccup shouldn't discard an evaluation the user already
+    // paid Claude API cost for — log it and return the evaluation anyway.
+    console.error("Progress persistence failed", error);
+    lessonCompleted = undefined;
+  }
+
+  return NextResponse.json({ evaluation, lessonCompleted });
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProgressBadge } from "@/components/ProgressBadge";
 import type { LessonSummary } from "@/lib/types";
 
-export function LessonCard({ lesson }: { lesson: LessonSummary }) {
+export function LessonCard({ lesson, completed }: { lesson: LessonSummary; completed: boolean }) {
   return (
     <Link
       href={`/lessons/${lesson.slug}`}
@@ -11,7 +11,7 @@ export function LessonCard({ lesson }: { lesson: LessonSummary }) {
     >
       <div className="flex items-start justify-between gap-2">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">{lesson.title}</h2>
-        <ProgressBadge lessonId={lesson.id} />
+        <ProgressBadge completed={completed} />
       </div>
       {lesson.subtitle && (
         <p className="text-sm text-zinc-500 dark:text-zinc-400">{lesson.subtitle}</p>

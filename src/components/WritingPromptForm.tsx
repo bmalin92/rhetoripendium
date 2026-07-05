@@ -1,32 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { EvaluationResult } from "@/components/EvaluationResult";
+import type { SubmissionView } from "@/lib/data/progress";
 import type { Evaluation } from "@/lib/evaluation/schema";
-import { getSubmissionsForPrompt, recordSubmission, type StoredSubmission } from "@/lib/progress";
 import type { PromptView } from "@/lib/types";
 
 export function WritingPromptForm({
   prompt,
-  lessonId,
-  lessonPromptIds,
+  initialHistory,
 }: {
   prompt: PromptView;
-  lessonId: string;
-  lessonPromptIds: string[];
+  initialHistory: SubmissionView[];
 }) {
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [latestEvaluation, setLatestEvaluation] = useState<Evaluation | null>(null);
-  const [history, setHistory] = useState<StoredSubmission[]>([]);
-
-  useEffect(() => {
-    // localStorage doesn't exist during SSR, so this must run post-mount to avoid a hydration mismatch.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHistory(getSubmissionsForPrompt(prompt.id));
-  }, [prompt.id]);
+  const [history, setHistory] = useState<SubmissionView[]>(initialHistory);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,14 +36,15 @@ export function WritingPromptForm({
       }
       const evaluation = data.evaluation as Evaluation;
       setLatestEvaluation(evaluation);
-      const store = recordSubmission({
-        lessonId,
-        lessonPromptIds,
-        promptId: prompt.id,
-        text,
-        evaluation,
-      });
-      setHistory(store.submissions[prompt.id] ?? []);
+      setHistory((prev) => [
+        {
+          id: crypto.randomUUID(),
+          text,
+          evaluation,
+          submittedAt: new Date().toISOString(),
+        },
+        ...prev,
+      ]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {

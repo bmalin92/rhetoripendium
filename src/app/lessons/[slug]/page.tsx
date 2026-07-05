@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { LessonContent } from "@/components/LessonContent";
 import { WritingPromptForm } from "@/components/WritingPromptForm";
 import { getLessonDetailBySlug } from "@/lib/data/lessons";
+import { getSubmissionHistoryByPrompt } from "@/lib/data/progress";
 
 export default async function LessonPage({
   params,
@@ -15,7 +16,8 @@ export default async function LessonPage({
 
   if (!lesson) notFound();
 
-  const lessonPromptIds = lesson.prompts.map((p) => p.id);
+  const promptIds = lesson.prompts.map((p) => p.id);
+  const historyByPrompt = await getSubmissionHistoryByPrompt(promptIds);
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-6 py-12 sm:px-10">
@@ -51,8 +53,7 @@ export default async function LessonPage({
           <WritingPromptForm
             key={prompt.id}
             prompt={prompt}
-            lessonId={lesson.id}
-            lessonPromptIds={lessonPromptIds}
+            initialHistory={historyByPrompt[prompt.id] ?? []}
           />
         ))}
       </div>

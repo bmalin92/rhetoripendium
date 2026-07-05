@@ -1,20 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-import { isLessonCompleted } from "@/lib/progress";
-
-export function ProgressBadge({ lessonId }: { lessonId: string }) {
-  const [completed, setCompleted] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    // localStorage doesn't exist during SSR, so this must run post-mount to avoid a hydration mismatch.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCompleted(isLessonCompleted(lessonId));
-  }, [lessonId]);
-
-  if (completed === null) return null;
-
+export function ProgressBadge({ completed }: { completed: boolean }) {
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
