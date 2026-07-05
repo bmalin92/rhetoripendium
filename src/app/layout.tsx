@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Cinzel, Cormorant_Garamond } from "next/font/google"
 import "./globals.css";
 
 import { AuthHeader } from "@/components/AuthHeader";
+import { ColumnGlyph } from "@/components/motifs/ColumnGlyph";
+import { GoldRule } from "@/components/ui/GoldRule";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +44,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <header className="flex items-center justify-end border-b border-zinc-200 px-6 py-3 dark:border-zinc-800">
-          <AuthHeader />
-        </header>
+        <div>
+          <div className="flex items-center justify-between gap-4 px-6 py-4">
+            <div className="flex items-center gap-2 text-foreground">
+              <ColumnGlyph className="text-gold" />
+              <span className="font-display text-lg tracking-wide">Rhetoripendium</span>
+            </div>
+            <AuthHeader />
+          </div>
+          <GoldRule />
+        </div>
         {children}
       </body>
     </html>
