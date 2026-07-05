@@ -310,6 +310,266 @@ No commit for this task.
 
 ---
 
+## Addendum: Post-deployment fixes (approved after final whole-branch review)
+
+The final whole-branch review (run after Task 3's live deployment) found two Important issues. The user reviewed both and chose to fix both now, explicitly accepting that Finding #1's fix (IP-based rate limiting) is scope beyond what Task 1 originally specified — Task 1's identity-only rate limit is retained unchanged; this adds a second, independent axis.
+
+### Task 4: Direct (unpooled) connection for migrations
+
+**Why:** `prisma migrate deploy` (run as part of the Vercel build, Task 2) takes a session-level advisory lock. This project's `prisma.config.ts` currently points the CLI/schema-engine at `DATABASE_URL`, which in production is Neon's **pooled** (PgBouncer, transaction-mode) connection string — advisory locks are unreliable through that pooler. This project uses `@prisma/adapter-pg` driver adapters (`src/lib/db.ts`), so the **runtime** Prisma Client's connection string is independent of `prisma.config.ts`: `src/lib/db.ts` passes `DATABASE_URL` straight into `PrismaPg` itself. That means `prisma.config.ts`'s `datasource.url` is consulted **only** by CLI commands (`migrate deploy`, `migrate status`, `migrate dev`) — safe to repoint at a **direct** connection string without touching runtime behavior at all.
+
+**Files:**
+- Modify: `prisma.config.ts`
+- Modify: `.env.example`
+- Modify: `.env` (local only — gitignored, never committed)
+
+**Interfaces:**
+- Consumes: nothing from Tasks 1-3.
+- Produces: nothing later tasks depend on. Task 5's migration (below) will exercise this fix directly (`prisma migrate dev` goes through the same `prisma.config.ts` datasource).
+
+- [ ] **Step 1: Add `DIRECT_URL` to `.env.example`**
+
+Add this block after the existing `DATABASE_URL` block:
+
+```
+# Neon direct (non-pooled) connection string — used only by the Prisma CLI
+# (migrate deploy/dev/status), never by the running app. In production this
+# must be Neon's non-"-pooler" hostname; locally it can be the same value as
+# DATABASE_URL, since local DATABASE_URL is already unpooled.
+DIRECT_URL="postgresql://user:password@ep-xxxx.region.aws.neon.tech/rhetoripendium?sslmode=require"
+```
+
+- [ ] **Step 2: Repoint `prisma.config.ts` at `DIRECT_URL`**
+
+Change:
+
+```ts
+  datasource: {
+    url: process.env["DATABASE_URL"],
+  },
+```
+
+to:
+
+```ts
+  datasource: {
+    url: process.env["DIRECT_URL"],
+  },
+```
+
+- [ ] **Step 3: Add `DIRECT_URL` to local `.env`**
+
+Local `DATABASE_URL` is already Neon's direct (non-pooled) connection string (per `.env.example`'s existing comment), so `DIRECT_URL` can be set to the same value locally. Do this without ever printing the value:
+
+```bash
+grep '^DATABASE_URL=' .env | sed 's/^DATABASE_URL=/DIRECT_URL=/' >> .env
+grep -o '^[A-Z_]*=' .env
+```
+
+Expected: the second command's output now includes a `DIRECT_URL=` line alongside the existing 5 variable names — confirms the line was added without ever displaying its value.
+
+- [ ] **Step 4: Verify**
+
+Run: `npx tsc --noEmit`
+Expected: no errors (verifies `prisma.config.ts`'s type still matches `@prisma/config`'s `Datasource` type, which only has optional `url`/`shadowDatabaseUrl` — no schema change needed).
+
+Run: `npx prisma migrate status`
+Expected: reports the database is up to date, now connecting via `DIRECT_URL` instead of `DATABASE_URL` — confirms the CLI picked up the repointed config.
+
+Run: `npm run build`
+Expected: `prisma migrate deploy` reports no pending migrations, followed by a normal successful Next.js build — confirms the full build-time path (which Vercel also runs) still works end-to-end through the direct connection.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add prisma.config.ts .env.example
+git commit -m "fix: run prisma CLI/migrations through Neon's direct connection, not the pooler"
+```
+
+- [ ] **Step 6: Manual step (human-only, not part of implementer's task)**
+
+In Vercel's project Settings → Environment Variables (Production scope), add `DIRECT_URL` set to Neon's **direct** (non-`-pooler`) connection string for this project — leave the existing `DATABASE_URL` (pooled) unchanged. Redeploy so the next build picks up the new env var.
+
+---
+
+### Task 5: IP-based secondary rate limit
+
+**Why:** Task 1's rate limit keys entirely on `Identity` (`userId` or `sessionId`). The anonymous `sessionId` cookie is minted fresh by `src/middleware.ts` on any request that doesn't send it — so a client that simply drops cookies between requests gets a brand-new, zero-count identity every time, completely bypassing the 5-per-10-minutes limit. This adds IP address (via Vercel's `x-forwarded-for` header) as a second, independent throttling axis that a cookie-dropping client cannot rotate as easily. The existing identity-based limit (5/10min) is unchanged; the IP limit is deliberately looser (20/10min) since a single IP can legitimately represent several real users behind shared NAT/office/school networks — it exists purely as an abuse backstop, not a per-user cap.
+
+**Files:**
+- Modify: `prisma/schema.prisma` (add nullable `ipAddress` to `Submission`)
+- Create: a new migration under `prisma/migrations/` (generated by `prisma migrate dev`, not hand-written)
+- Modify: `src/lib/rate-limit.ts`
+- Modify: `src/app/api/evaluate/route.ts`
+
+**Interfaces:**
+- Consumes: `checkRateLimit` from Task 1 (`src/lib/rate-limit.ts`) — this task changes its signature, so every call site must be updated in the same task.
+- Produces: `checkRateLimit(identity: Identity, ipAddress: string | null): Promise<boolean>` — new signature. No later task depends on this.
+
+- [ ] **Step 1: Add `ipAddress` to the `Submission` model**
+
+In `prisma/schema.prisma`, change:
+
+```prisma
+model Submission {
+  id          String        @id @default(cuid())
+  sessionId   String?
+  session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promptId    String
+  prompt      WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  text        String
+  evaluation  Json
+  submittedAt DateTime      @default(now())
+
+  @@index([sessionId, promptId])
+  @@index([userId, promptId])
+}
+```
+
+to:
+
+```prisma
+model Submission {
+  id          String        @id @default(cuid())
+  sessionId   String?
+  session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId      String?
+  user        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promptId    String
+  prompt      WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  text        String
+  evaluation  Json
+  ipAddress   String?
+  submittedAt DateTime      @default(now())
+
+  @@index([sessionId, promptId])
+  @@index([userId, promptId])
+  @@index([ipAddress])
+}
+```
+
+- [ ] **Step 2: Generate and apply the migration**
+
+Run: `npx prisma migrate dev --name add_submission_ip_address`
+Expected: Prisma creates a new folder under `prisma/migrations/` with a `migration.sql` that adds a nullable `ipAddress` column and an index to `Submission`, applies it to the local dev database, and regenerates the Prisma Client. This also exercises Task 4's `DIRECT_URL` fix directly, since `migrate dev` goes through the same `prisma.config.ts` datasource.
+
+- [ ] **Step 3: Update `src/lib/rate-limit.ts` in full**
+
+Replace the entire file with:
+
+```ts
+import { prisma } from "@/lib/db";
+import type { Identity } from "@/lib/identity";
+
+const IDENTITY_RATE_LIMIT_MAX_SUBMISSIONS = 5;
+const IP_RATE_LIMIT_MAX_SUBMISSIONS = 20;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+
+// Fails open on a DB error — a transient hiccup here must never block a
+// legitimate submission, matching this route's existing persistence
+// try/catch philosophy.
+//
+// Two independent axes: identity (userId/sessionId) catches normal reuse;
+// IP address catches a client that drops its session cookie between
+// requests to obtain a fresh, zero-count identity each time. The IP
+// threshold is deliberately looser than the identity one, since one IP can
+// legitimately represent several real users behind shared NAT.
+export async function checkRateLimit(
+  identity: Identity,
+  ipAddress: string | null
+): Promise<boolean> {
+  const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MS);
+
+  try {
+    if (identity) {
+      const identityWhere =
+        identity.type === "user" ? { userId: identity.id } : { sessionId: identity.id };
+
+      const identityCount = await prisma.submission.count({
+        where: { ...identityWhere, submittedAt: { gte: windowStart } },
+      });
+
+      if (identityCount >= IDENTITY_RATE_LIMIT_MAX_SUBMISSIONS) {
+        return false;
+      }
+    }
+
+    if (ipAddress) {
+      const ipCount = await prisma.submission.count({
+        where: { ipAddress, submittedAt: { gte: windowStart } },
+      });
+
+      if (ipCount >= IP_RATE_LIMIT_MAX_SUBMISSIONS) {
+        return false;
+      }
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Rate limit check failed", error);
+    return true;
+  }
+}
+```
+
+- [ ] **Step 4: Update `src/app/api/evaluate/route.ts`**
+
+Add IP extraction right after `const identity = await getIdentity();`:
+
+```ts
+  const identity = await getIdentity();
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ipAddress = forwardedFor ? forwardedFor.split(",")[0]?.trim() || null : null;
+
+  const withinRateLimit = await checkRateLimit(identity, ipAddress);
+```
+
+(This replaces the existing `const withinRateLimit = await checkRateLimit(identity);` line — same call site, new second argument.)
+
+Then, in the persistence block, add `ipAddress` to the `Submission` create call:
+
+```ts
+      await prisma.submission.create({
+        data: { ...identityWhere, promptId, text: submission, evaluation, ipAddress },
+      });
+```
+
+(This replaces the existing `data: { ...identityWhere, promptId, text: submission, evaluation },` line.)
+
+- [ ] **Step 5: Typecheck and lint**
+
+Run: `npx tsc --noEmit && npm run lint`
+Expected: no errors.
+
+- [ ] **Step 6: Manual verification against a real dev server**
+
+With `npm run dev` running, simulate a cookie-rotating client (fresh cookies every request, so the identity-based limit never triggers) sharing one spoofed IP, and confirm the IP-based limit still catches it after 20 requests:
+
+```bash
+for i in $(seq 1 21); do
+  curl -s -X POST http://localhost:3000/api/evaluate \
+    -H "Content-Type: application/json" \
+    -H "X-Forwarded-For: 203.0.113.5" \
+    -d '{"promptId":"<real-prompt-id>","submission":"<at least minWords words>"}' \
+    -w " [status: %{http_code}]\n" -o /dev/null
+done
+```
+
+Expected: requests 1-20 return `status: 200` (no session cookie is reused between requests, so the identity check never blocks them — proving the old bypass still exists at the identity layer), request 21 returns `status: 429` (the IP-based check now catches it). Also re-run Task 1's original 6-submission-same-cookie test and confirm it still returns 429 on the 6th request — the identity-based limit must be unaffected by this change.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add prisma/schema.prisma prisma/migrations src/lib/rate-limit.ts src/app/api/evaluate/route.ts src/generated/prisma
+git commit -m "feat: add IP-based rate limit as a second axis alongside identity"
+```
+
+Note: `src/generated/prisma` is gitignored (per `.gitignore:47`) — the `git add` of that path is a no-op if so; harmless either way.
+
+---
+
 ## Self-Review Notes
 
 - **Spec coverage:** Rate Limiting (Task 1), Database Connection / pooled `DATABASE_URL` (Task 3 Step 2), Build Configuration (Task 2), Vercel Project Setup (Task 3 Steps 1-5), Testing/Verification Plan (Task 3 Step 6) — every section of `docs/superpowers/specs/2026-07-05-phase4-deployment-design.md` maps to a task.
