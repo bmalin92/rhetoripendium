@@ -26,6 +26,7 @@ model Lesson {
   sections LessonSection[]
   prompts  WritingPrompt[]
   devices  LessonDevice[]
+  completedBy CompletedLesson[]
 }
 
 enum SectionKind {
@@ -58,6 +59,7 @@ model WritingPrompt {
   maxWords     Int?
 
   criteria EvaluationCriterion[]
+  submissions Submission[]
 
   @@index([lessonId])
 }
@@ -89,4 +91,36 @@ model LessonDevice {
   device   RhetoricalDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 
   @@id([lessonId, deviceId])
+}
+
+model Session {
+  id               String            @id
+  createdAt        DateTime          @default(now())
+  lastSeenAt       DateTime          @updatedAt
+  completedLessons CompletedLesson[]
+  submissions      Submission[]
+}
+
+model CompletedLesson {
+  id          String   @id @default(cuid())
+  sessionId   String
+  session     Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completedAt DateTime @default(now())
+
+  @@unique([sessionId, lessonId])
+}
+
+model Submission {
+  id          String        @id @default(cuid())
+  sessionId   String
+  session     Session       @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  promptId    String
+  prompt      WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  text        String
+  evaluation  Json
+  submittedAt DateTime      @default(now())
+
+  @@index([sessionId, promptId])
 }
