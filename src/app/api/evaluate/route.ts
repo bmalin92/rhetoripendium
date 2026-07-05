@@ -28,8 +28,10 @@ export async function POST(request: Request) {
   }
 
   const identity = await getIdentity();
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ipAddress = forwardedFor ? forwardedFor.split(",")[0]?.trim() || null : null;
 
-  const withinRateLimit = await checkRateLimit(identity);
+  const withinRateLimit = await checkRateLimit(identity, ipAddress);
   if (!withinRateLimit) {
     return NextResponse.json(
       {
@@ -77,7 +79,7 @@ export async function POST(request: Request) {
         identity.type === "user" ? { userId: identity.id } : { sessionId: identity.id };
 
       await prisma.submission.create({
-        data: { ...identityWhere, promptId, text: submission, evaluation },
+        data: { ...identityWhere, promptId, text: submission, evaluation, ipAddress },
       });
 
       const lessonPromptIds = prompt.lesson.prompts.map((p) => p.id);

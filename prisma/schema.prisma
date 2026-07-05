@@ -138,8 +138,10 @@ model Submission {
   prompt      WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
   text        String
   evaluation  Json
+  ipAddress   String?
   submittedAt DateTime      @default(now())
 
   @@index([sessionId, promptId])
   @@index([userId, promptId])
+  @@index([ipAddress])
 }
