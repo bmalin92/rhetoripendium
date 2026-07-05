@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Lesson {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  subtitle  String?
+  summary   String
+  order     Int
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sections LessonSection[]
+  prompts  WritingPrompt[]
+  devices  LessonDevice[]
+}
+
+enum SectionKind {
+  EXPLANATION
+  EXAMPLE
+  CLASSICAL_EXAMPLE
+  SUMMARY
+}
+
+model LessonSection {
+  id       String      @id @default(cuid())
+  lessonId String
+  lesson   Lesson      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  order    Int
+  kind     SectionKind
+  heading  String?
+  content  String
+
+  @@index([lessonId])
+}
+
+model WritingPrompt {
+  id           String  @id @default(cuid())
+  lessonId     String
+  lesson       Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  order        Int
+  prompt       String
+  instructions String?
+  minWords     Int?
+  maxWords     Int?
+
+  criteria EvaluationCriterion[]
+
+  @@index([lessonId])
+}
+
+model EvaluationCriterion {
+  id          String        @id @default(cuid())
+  promptId    String
+  prompt      WritingPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+  order       Int
+  key         String
+  label       String
+  description String
+
+  @@index([promptId])
+}
+
+model RhetoricalDevice {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  name        String
+  description String
+  lessons     LessonDevice[]
+}
+
+model LessonDevice {
+  lessonId String
+  deviceId String
+  lesson   Lesson           @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  device   RhetoricalDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@id([lessonId, deviceId])
+}
