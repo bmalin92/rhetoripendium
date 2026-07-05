@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { getPromptWithContext } from "@/lib/data/lessons";
 import { evaluateSubmission } from "@/lib/claude";
 import { getIdentity } from "@/lib/identity";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const requestSchema = z.object({
   promptId: z.string().min(1),
@@ -24,6 +25,19 @@ export async function POST(request: Request) {
   const prompt = await getPromptWithContext(promptId);
   if (!prompt) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
+
+  const identity = await getIdentity();
+
+  const withinRateLimit = await checkRateLimit(identity);
+  if (!withinRateLimit) {
+    return NextResponse.json(
+      {
+        error: "rate_limited",
+        message: "You've submitted a lot in the last few minutes — try again shortly.",
+      },
+      { status: 429 }
+    );
   }
 
   let evaluation;
@@ -50,8 +64,6 @@ export async function POST(request: Request) {
 
   let lessonCompleted: boolean | undefined;
   try {
-    const identity = await getIdentity();
-
     if (identity) {
       if (identity.type === "session") {
         await prisma.session.upsert({
