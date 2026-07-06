@@ -3,6 +3,13 @@ export interface DeviceSummary {
   name: string;
 }
 
+export interface CategorySummary {
+  slug: string;
+  name: string;
+  description: string;
+  order: number;
+}
+
 export interface LessonSummary {
   id: string;
   slug: string;
@@ -10,6 +17,7 @@ export interface LessonSummary {
   subtitle: string | null;
   summary: string;
   order: number;
+  category: CategorySummary;
   devices: DeviceSummary[];
 }
 

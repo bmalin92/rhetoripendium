@@ -12,21 +12,36 @@ datasource db {
   provider = "postgresql"
 }
 
+model LessonCategory {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  order       Int
+
+  lessons Lesson[]
+}
+
 model Lesson {
-  id        String   @id @default(cuid())
-  slug      String   @unique
-  title     String
-  subtitle  String?
-  summary   String
-  order     Int
-  published Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String
+  subtitle   String?
+  summary    String
+  order      Int
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  categoryId String
+  category   LessonCategory @relation(fields: [categoryId], references: [id])
 
   sections LessonSection[]
   prompts  WritingPrompt[]
   devices  LessonDevice[]
   completedBy CompletedLesson[]
+
+  @@index([categoryId])
 }
 
 enum SectionKind {
