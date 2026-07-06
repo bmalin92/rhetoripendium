@@ -1,19 +1,23 @@
+import { LaurelSprig } from "@/components/motifs/LaurelSprig";
+import { MeanderRule } from "@/components/motifs/MeanderRule";
+import { GoldRule } from "@/components/ui/GoldRule";
+import { Panel } from "@/components/ui/Panel";
 import type { Evaluation } from "@/lib/evaluation/schema";
 
 const VERDICT_STYLES: Record<string, string> = {
-  poor: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
-  needs_significant_work: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
-  developing: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
-  proficient: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
-  solid: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
-  excellent: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  poor: "bg-verdict-poor/15 text-verdict-poor",
+  needs_significant_work: "bg-verdict-poor/15 text-verdict-poor",
+  developing: "bg-verdict-developing/15 text-verdict-developing",
+  proficient: "bg-verdict-proficient/15 text-verdict-proficient",
+  solid: "bg-verdict-proficient/15 text-verdict-proficient",
+  excellent: "bg-verdict-excellent/15 text-verdict-excellent",
 };
 
 function VerdictBadge({ verdict }: { verdict: string }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
-        VERDICT_STYLES[verdict] ?? "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
+      className={`font-heading inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
+        VERDICT_STYLES[verdict] ?? "bg-surface text-muted"
       }`}
     >
       {verdict.replaceAll("_", " ")}
@@ -22,61 +26,75 @@ function VerdictBadge({ verdict }: { verdict: string }) {
 }
 
 export function EvaluationResult({ evaluation }: { evaluation: Evaluation }) {
+  const isExcellent = evaluation.overallVerdict === "excellent";
+
   return (
-    <div className="flex flex-col gap-5 rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+    <Panel className="flex flex-col gap-5 p-5">
       <div className="flex items-center justify-between gap-2">
-        <h4 className="text-base font-semibold text-zinc-900 dark:text-zinc-50">Evaluation</h4>
-        <VerdictBadge verdict={evaluation.overallVerdict} />
+        <h4 className="font-heading text-lg font-semibold text-foreground">Evaluation</h4>
+        <div className="flex items-center gap-1.5">
+          {isExcellent && <LaurelSprig className="text-gold" />}
+          <VerdictBadge verdict={evaluation.overallVerdict} />
+        </div>
       </div>
 
       <div>
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm font-medium text-muted">
           Device usage: {evaluation.deviceUsed ? "Detected" : "Not detected"}
         </p>
-        <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{evaluation.deviceAnalysis}</p>
+        <p className="mt-1 text-sm text-foreground">{evaluation.deviceAnalysis}</p>
       </div>
 
       <div className="flex flex-col gap-3">
         {evaluation.criteria.map((c) => (
-          <div key={c.key} className="border-t border-zinc-100 pt-3 dark:border-zinc-800">
+          <div key={c.key} className="border-t border-border pt-3">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{c.label}</p>
+              <p className="text-sm font-semibold text-foreground">{c.label}</p>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-zinc-500 dark:text-zinc-400">{c.score}/5</span>
+                <span className="text-sm text-muted">{c.score}/5</span>
                 <VerdictBadge verdict={c.verdict} />
               </div>
             </div>
-            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{c.feedback}</p>
+            <p className="mt-1 text-sm text-foreground">{c.feedback}</p>
           </div>
         ))}
       </div>
 
-      {evaluation.strengths.length > 0 && (
-        <div>
-          <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Strengths</p>
-          <ul className="mt-1 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300">
-            {evaluation.strengths.map((s, i) => (
-              <li key={i}>{s}</li>
-            ))}
-          </ul>
-        </div>
+      {(evaluation.strengths.length > 0 || evaluation.weaknesses.length > 0) && (
+        <>
+          <MeanderRule />
+          <div className="flex flex-col gap-5 sm:flex-row">
+            {evaluation.strengths.length > 0 && (
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground">Strengths</p>
+                <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
+                  {evaluation.strengths.map((s, i) => (
+                    <li key={i}>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {evaluation.strengths.length > 0 && evaluation.weaknesses.length > 0 && (
+              <GoldRule orientation="vertical" className="hidden sm:block" />
+            )}
+            {evaluation.weaknesses.length > 0 && (
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-foreground">Weaknesses</p>
+                <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
+                  {evaluation.weaknesses.map((w, i) => (
+                    <li key={i}>{w}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </>
       )}
 
-      {evaluation.weaknesses.length > 0 && (
-        <div>
-          <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Weaknesses</p>
-          <ul className="mt-1 list-disc pl-5 text-sm text-zinc-700 dark:text-zinc-300">
-            {evaluation.weaknesses.map((w, i) => (
-              <li key={i}>{w}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <div className="border-t border-zinc-100 pt-3 dark:border-zinc-800">
-        <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Summary</p>
-        <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{evaluation.summary}</p>
+      <div className="border-t border-border pt-3">
+        <p className="text-sm font-semibold text-foreground">Summary</p>
+        <p className="mt-1 text-sm text-foreground">{evaluation.summary}</p>
       </div>
-    </div>
+    </Panel>
   );
 }

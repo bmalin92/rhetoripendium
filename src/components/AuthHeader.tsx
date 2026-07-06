@@ -1,4 +1,5 @@
 import { auth, signIn, signOut } from "@/auth";
+import { Button } from "@/components/ui/Button";
 
 export async function AuthHeader() {
   const session = await auth();
@@ -11,33 +12,25 @@ export async function AuthHeader() {
           await signIn("google");
         }}
       >
-        <button
-          type="submit"
-          className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-50 hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-        >
+        <Button type="submit" variant="primary">
           Sign in with Google
-        </button>
+        </Button>
       </form>
     );
   }
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-zinc-600 dark:text-zinc-400">
-        {session.user.name ?? session.user.email}
-      </span>
+      <span className="text-sm text-muted">{session.user.name ?? session.user.email}</span>
       <form
         action={async () => {
           "use server";
           await signOut();
         }}
       >
-        <button
-          type="submit"
-          className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-900 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-800"
-        >
+        <Button type="submit" variant="secondary">
           Sign out
-        </button>
+        </Button>
       </form>
     </div>
   );
