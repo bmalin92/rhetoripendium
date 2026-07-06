@@ -2,10 +2,12 @@ import { prisma } from "@/lib/db";
 import type { LessonDetail, LessonSummary } from "@/lib/types";
 
 const summaryInclude = {
+  category: true,
   devices: { include: { device: true } },
 } as const;
 
 const detailInclude = {
+  category: true,
   sections: { orderBy: { order: "asc" as const } },
   prompts: {
     orderBy: { order: "asc" as const },
@@ -25,6 +27,12 @@ function toLessonSummary(lesson: LessonWithSummaryInclude): LessonSummary {
     subtitle: lesson.subtitle,
     summary: lesson.summary,
     order: lesson.order,
+    category: {
+      slug: lesson.category.slug,
+      name: lesson.category.name,
+      description: lesson.category.description,
+      order: lesson.category.order,
+    },
     devices: lesson.devices.map((ld) => ({ slug: ld.device.slug, name: ld.device.name })),
   };
 }
@@ -59,7 +67,7 @@ function toLessonDetail(lesson: LessonWithDetailInclude): LessonDetail {
 export async function getLessons() {
   return prisma.lesson.findMany({
     where: { published: true },
-    orderBy: { order: "asc" },
+    orderBy: [{ category: { order: "asc" } }, { order: "asc" }],
     include: summaryInclude,
   });
 }
