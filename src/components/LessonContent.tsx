@@ -35,12 +35,12 @@ export function LessonContent({ sections }: { sections: SectionView[] }) {
           <div key={section.id} className="flex flex-col gap-8">
             {i > 0 && <GoldRule />}
             {section.kind === "CLASSICAL_EXAMPLE" ? (
-              <Panel className="ml-4 border-l-4 border-l-gold p-5 sm:ml-8">{body}</Panel>
+              <Panel className="ml-4 border-l-4 border-l-accent p-5 sm:ml-8">{body}</Panel>
             ) : (
               <section
                 className={
                   section.kind === "SUMMARY"
-                    ? "rounded-lg border border-border bg-surface p-5"
+                    ? "texture-paper rounded-lg border border-border bg-surface p-5"
                     : ""
                 }
               >

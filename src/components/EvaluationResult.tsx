@@ -1,5 +1,4 @@
 import { LaurelSprig } from "@/components/motifs/LaurelSprig";
-import { MeanderRule } from "@/components/motifs/MeanderRule";
 import { GoldRule } from "@/components/ui/GoldRule";
 import { Panel } from "@/components/ui/Panel";
 import type { Evaluation } from "@/lib/evaluation/schema";
@@ -16,7 +15,7 @@ const VERDICT_STYLES: Record<string, string> = {
 function VerdictBadge({ verdict }: { verdict: string }) {
   return (
     <span
-      className={`font-heading inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
         VERDICT_STYLES[verdict] ?? "bg-surface text-muted"
       }`}
     >
@@ -61,34 +60,31 @@ export function EvaluationResult({ evaluation }: { evaluation: Evaluation }) {
       </div>
 
       {(evaluation.strengths.length > 0 || evaluation.weaknesses.length > 0) && (
-        <>
-          <MeanderRule />
-          <div className="flex flex-col gap-5 sm:flex-row">
-            {evaluation.strengths.length > 0 && (
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">Strengths</p>
-                <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
-                  {evaluation.strengths.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {evaluation.strengths.length > 0 && evaluation.weaknesses.length > 0 && (
-              <GoldRule orientation="vertical" className="hidden sm:block" />
-            )}
-            {evaluation.weaknesses.length > 0 && (
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">Weaknesses</p>
-                <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
-                  {evaluation.weaknesses.map((w, i) => (
-                    <li key={i}>{w}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </>
+        <div className="flex flex-col gap-5 border-t border-border pt-3 sm:flex-row">
+          {evaluation.strengths.length > 0 && (
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-foreground">Strengths</p>
+              <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
+                {evaluation.strengths.map((s, i) => (
+                  <li key={i}>{s}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {evaluation.strengths.length > 0 && evaluation.weaknesses.length > 0 && (
+            <GoldRule orientation="vertical" className="hidden sm:block" />
+          )}
+          {evaluation.weaknesses.length > 0 && (
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-foreground">Weaknesses</p>
+              <ul className="mt-1 list-disc pl-5 text-sm text-foreground">
+                {evaluation.weaknesses.map((w, i) => (
+                  <li key={i}>{w}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       )}
 
       <div className="border-t border-border pt-3">
