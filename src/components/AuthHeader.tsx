@@ -12,8 +12,8 @@ export async function AuthHeader() {
           await signIn("google");
         }}
       >
-        <Button type="submit" variant="primary">
-          Sign in with Google
+        <Button type="submit" variant="trevi">
+          Sign in
         </Button>
       </form>
     );

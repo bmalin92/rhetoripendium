@@ -1,10 +1,11 @@
 import type { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "trevi";
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary: "bg-gold text-white hover:bg-gold-hover",
   secondary: "border border-border text-foreground hover:bg-surface",
+  trevi: "bg-trevi text-white hover:bg-trevi-hover",
 };
 
 export function Button({
