@@ -1,5 +1,5 @@
 import { LessonList } from "@/components/LessonList";
-import { MeanderRule } from "@/components/motifs/MeanderRule";
+import { GoldRule } from "@/components/ui/GoldRule";
 import { getCompletedLessonIds } from "@/lib/data/progress";
 import { getLessonSummaries } from "@/lib/data/lessons";
 
@@ -18,7 +18,7 @@ export default async function Home() {
           devices behind great writing — then put each lesson to work in your own writing and get
           a rigorous critique.
         </p>
-        <MeanderRule />
+        <GoldRule className="max-w-16" />
       </header>
       <LessonList lessons={lessons} completedLessonIds={completedLessonIds} />
     </div>
