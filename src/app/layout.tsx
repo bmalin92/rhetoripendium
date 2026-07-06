@@ -1,10 +1,24 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cinzel, Cormorant_Garamond } from "next/font/google";
+import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
 
 import { AuthHeader } from "@/components/AuthHeader";
 import { ColumnGlyph } from "@/components/motifs/ColumnGlyph";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { GoldRule } from "@/components/ui/GoldRule";
+
+const THEME_INIT_SCRIPT = `
+(function () {
+  try {
+    var theme = localStorage.getItem("rp-theme");
+    if (theme === "light" || theme === "dark") {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  } catch (e) {}
+})();
+`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,15 +56,22 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${cormorantGaramond.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <header>
           <div className="flex items-center justify-between gap-4 px-6 py-4">
-            <div className="flex items-center gap-2 text-foreground">
+            <Link href="/" className="flex items-center gap-2 text-foreground">
               <ColumnGlyph className="text-gold" />
               <span className="font-display text-lg tracking-wide">Rhetoripendium</span>
+            </Link>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <AuthHeader />
             </div>
-            <AuthHeader />
           </div>
           <GoldRule />
         </header>

@@ -1,33 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F8F5EF;
-  --foreground: #2A2622;
-  --surface: #FDFBF7;
-  --muted: #5C5344;
-  --border-color: #D8D0C4;
+  --background: #EDEAE2;
+  --foreground: #201C18;
+  --surface: #FFFFFF;
+  --input: #F6F2EA;
+  --muted: #4A4237;
+  --border-color: #C9BFAE;
   --gold: #A67C27;
   --gold-hover: #8B6914;
   --accent: #B0472B;
   --accent-hover: #8F3820;
+  --trevi: #1B8A87;
+  --trevi-hover: #146967;
   --verdict-poor: #6B2737;
   --verdict-developing: #B8860B;
   --verdict-proficient: #2A5CAA;
   --verdict-excellent: #66023C;
-  --marble-vein: rgba(42, 38, 34, 0.05);
-  --marble-vein-soft: rgba(42, 38, 34, 0.025);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-input: var(--input);
   --color-muted: var(--muted);
   --color-border: var(--border-color);
   --color-gold: var(--gold);
   --color-gold-hover: var(--gold-hover);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-trevi: var(--trevi);
+  --color-trevi-hover: var(--trevi-hover);
   --color-verdict-poor: var(--verdict-poor);
   --color-verdict-developing: var(--verdict-developing);
   --color-verdict-proficient: var(--verdict-proficient);
@@ -40,32 +44,72 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #171512;
-    --foreground: #EDE6D9;
-    --surface: #211E1A;
-    --muted: #B0A793;
-    --border-color: #3A352E;
+    --background: #14120F;
+    --foreground: #F2ECDF;
+    --surface: #242019;
+    --input: #1D1912;
+    --muted: #B8AF9B;
+    --border-color: #3F392F;
     --gold: #C9982E;
     --gold-hover: #DCAE4A;
     --accent: #D97A54;
     --accent-hover: #E89876;
+    --trevi: #3FC7BE;
+    --trevi-hover: #5DD6CD;
     --verdict-poor: #A23B4E;
     --verdict-developing: #D4A017;
     --verdict-proficient: #4A7FC1;
     --verdict-excellent: #8B2C6B;
-    --marble-vein: rgba(237, 230, 217, 0.05);
-    --marble-vein-soft: rgba(237, 230, 217, 0.025);
   }
+}
+
+/*
+ * Explicit theme overrides for the light/dark/system toggle. Attribute
+ * selectors (specificity 0,2,0) outrank the plain `:root` media-query block
+ * above (0,1,0), so setting data-theme on <html> always wins over the OS
+ * preference. "System" mode simply omits the attribute, leaving the media
+ * query in control.
+ */
+:root[data-theme="light"] {
+  --background: #EDEAE2;
+  --foreground: #201C18;
+  --surface: #FFFFFF;
+  --input: #F6F2EA;
+  --muted: #4A4237;
+  --border-color: #C9BFAE;
+  --gold: #A67C27;
+  --gold-hover: #8B6914;
+  --accent: #B0472B;
+  --accent-hover: #8F3820;
+  --trevi: #1B8A87;
+  --trevi-hover: #146967;
+  --verdict-poor: #6B2737;
+  --verdict-developing: #B8860B;
+  --verdict-proficient: #2A5CAA;
+  --verdict-excellent: #66023C;
+}
+
+:root[data-theme="dark"] {
+  --background: #14120F;
+  --foreground: #F2ECDF;
+  --surface: #242019;
+  --input: #1D1912;
+  --muted: #B8AF9B;
+  --border-color: #3F392F;
+  --gold: #C9982E;
+  --gold-hover: #DCAE4A;
+  --accent: #D97A54;
+  --accent-hover: #E89876;
+  --trevi: #3FC7BE;
+  --trevi-hover: #5DD6CD;
+  --verdict-poor: #A23B4E;
+  --verdict-developing: #D4A017;
+  --verdict-proficient: #4A7FC1;
+  --verdict-excellent: #8B2C6B;
 }
 
 body {
   background-color: var(--background);
-  background-image:
-    radial-gradient(ellipse 70% 45% at 15% 10%, var(--marble-vein-soft), transparent 60%),
-    radial-gradient(ellipse 65% 40% at 88% 78%, var(--marble-vein-soft), transparent 60%),
-    repeating-linear-gradient(115deg, var(--marble-vein) 0px, transparent 2px, transparent 90px),
-    repeating-linear-gradient(25deg, var(--marble-vein) 0px, transparent 1.5px, transparent 130px);
-  background-attachment: fixed;
   color: var(--foreground);
 }
 
@@ -92,6 +136,14 @@ body {
   .texture-paper::before {
     opacity: 0.09;
   }
+}
+
+:root[data-theme="light"] .texture-paper::before {
+  opacity: 0.05;
+}
+
+:root[data-theme="dark"] .texture-paper::before {
+  opacity: 0.09;
 }
 
 .markdown-content > * + * {

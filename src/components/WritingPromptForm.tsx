@@ -74,7 +74,7 @@ export function WritingPromptForm({
           onChange={(e) => setText(e.target.value)}
           rows={8}
           placeholder="Write your response here..."
-          className="w-full rounded-lg border border-border bg-background p-3 text-sm text-foreground focus:border-gold focus:outline-none"
+          className="w-full rounded-lg border border-border bg-input p-3 text-sm text-foreground shadow-inner focus:border-gold focus:outline-none"
           required
         />
         <div className="flex items-center justify-between">
