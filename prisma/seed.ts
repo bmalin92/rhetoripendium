@@ -248,6 +248,86 @@ const devices: { slug: string; name: string; description: string }[] = [
     name: "Dramatic Irony",
     description: "A gap in knowledge where the audience understands something a character does not, charging every line the character speaks.",
   },
+  {
+    slug: "decorum",
+    name: "Decorum (Aptum)",
+    description:
+      "Fitting style, tone, and diction to the subject, audience, speaker, and occasion, rather than to a fixed standard of formality.",
+  },
+  {
+    slug: "enargeia",
+    name: "Enargeia",
+    description:
+      "Vivid, concrete sensory description that makes a scene feel witnessed and present, converting an abstract claim into felt experience.",
+  },
+  {
+    slug: "anadiplosis",
+    name: "Anadiplosis",
+    description:
+      "Repeating the last word or phrase of one clause at the start of the next, linking consecutive clauses into a chain.",
+  },
+  {
+    slug: "climax",
+    name: "Climax",
+    description:
+      "A chain of anadiplosis extended across three or more links, each escalating in weight past the last, toward a culminating final term — also called gradatio.",
+  },
+  {
+    slug: "epizeuxis",
+    name: "Epizeuxis",
+    description:
+      "Immediate repetition of a word or phrase with no intervening words, used to convey an intensity a single instance of the word can't carry.",
+  },
+  {
+    slug: "diacope",
+    name: "Diacope",
+    description:
+      "Repetition of a word or phrase broken by a brief interrupting word or phrase, so the interruption itself sharpens the emphasis.",
+  },
+  {
+    slug: "isocolon",
+    name: "Isocolon",
+    description:
+      "Two or more clauses or phrases matched not just in grammatical structure but in length, so the balance is felt rhythmically as well as seen structurally.",
+  },
+  {
+    slug: "hendiadys",
+    name: "Hendiadys",
+    description:
+      "Expressing a single complex idea through two nouns (or verbs) joined by 'and' instead of a noun and its modifier, fusing two coordinate terms into one heightened impression.",
+  },
+  {
+    slug: "personification",
+    name: "Personification",
+    description: "Attributing human qualities, feelings, or actions to a non-human, non-living, or abstract subject.",
+  },
+  {
+    slug: "prosopopoeia",
+    name: "Prosopopoeia",
+    description: "The extended form of personification in which an absent, dead, abstract, or non-human entity is given a first-person voice to speak for itself.",
+  },
+  {
+    slug: "oxymoron",
+    name: "Oxymoron",
+    description: "A compressed, usually two-word figure that yokes two apparently contradictory terms into a single pointed phrase.",
+  },
+  {
+    slug: "paradox",
+    name: "Paradox",
+    description: "A statement that appears self-contradictory or absurd on its surface but reveals a coherent, often deeper truth on examination.",
+  },
+  {
+    slug: "erotema",
+    name: "Erotema",
+    description:
+      "A question posed for rhetorical effect, with an answer so strongly implied that none is stated — distinct from hypophora, which answers its own question aloud.",
+  },
+  {
+    slug: "argument-from-analogy",
+    name: "Argument from Analogy",
+    description:
+      "An argument that two cases resembling each other in the properties that matter should be judged alike, transferring a conclusion true of one to the other.",
+  },
 ];
 
 const lessons: SeedLesson[] = [
@@ -2099,6 +2179,928 @@ Swift does not argue directly against the era's cold cost-benefit treatments of 
             label: "Fair to the Opposing View",
             description:
               "Is the opposing position represented in a form its holders would recognize as fair, rather than weakened or caricatured before being refuted?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "decorum-fitting-style-to-occasion",
+    title: "Decorum: Fitting Style to Occasion",
+    subtitle: "Why the same argument can read as tone-deaf in one register and exactly right in another",
+    summary:
+      "How classical decorum (aptum) governs the fit between style, subject, audience, and occasion — and why matching register is a rhetorical skill distinct from politeness or formality.",
+    order: 5,
+    categorySlug: "appeals",
+    deviceSlugs: ["decorum"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "What Decorum Actually Is",
+        content: `Classical rhetoricians called it decorum in Latin, to prepon in Greek, or aptum more technically: the principle that style, tone, and diction must fit the subject being discussed, the character of the speaker, the audience listening, and the occasion itself. It is tempting to hear "decorum" and think of manners — of politeness, formality, staying within the lines of what is proper to say. That is not what the term means here, and treating it that way is the single most common misreading of the concept. Decorum is not a code of etiquette; it is a judgment of fit. A eulogy can require decorum that is plain, halting, and understated. A protest speech can require decorum that is blunt, angry, even transgressive — if bluntness is what the subject and the moment actually demand. Politeness and decorum can point in entirely opposite directions.
+
+What decorum actually governs is mismatch. Ornate, elevated language applied to a small private grief is a decorum failure, not because it is improper, but because it is the wrong tool for what the occasion needs. Casual, offhand phrasing applied to a matter of grave consequence is a decorum failure for the same reason: the register doesn't carry the weight the subject actually has. Classical teaching organized style into roughly three registers — a grand or high style suited to moving an audience on momentous matters, a plain style suited to teaching and clarifying, and a middle style suited to pleasing and elaborating — but decorum sits above the choice of any one of these. It is the prior judgment of which register belongs here, for this audience, on this subject, at this moment.
+
+Decorum also has a hidden connection to ethos. A speaker who adopts a register their actual position doesn't entitle them to — grand, heroic language for a minor personal complaint; the confident authority of an expert from someone with no standing on the subject — breaches decorum even when the sentences are grammatically flawless, and the breach undercuts credibility precisely because the audience can feel the mismatch between who is speaking and how they've chosen to sound.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Techniques for Matching Style to Occasion",
+        content: `Four checks let a writer test fit before committing to a register:
+
+1. **Weigh the subject before choosing diction.** Match the gravity of your language to the actual stakes involved, not to how important the matter feels to you personally in the moment of writing.
+2. **Calibrate formality to the audience's real relationship to you and to the material.** Vocabulary, sentence complexity, and distance should reflect what the audience already shares with you — a shared history, a shared vocabulary, a shared stake — not a generic default register you reach for out of habit.
+3. **Let the occasion set the emotional volume.** Restraint is often correct where an audience is raw, grieving, or already overwhelmed; expansiveness may be earned where an audience is receptive and has appetite for build-up. Volume mismatched to audience state reads as either cold or overwrought regardless of the words chosen.
+4. **Check whether your own position actually licenses the register you've picked.** Do not borrow the authority of a role, a relationship, or an experience you don't occupy — audiences detect borrowed authority quickly, and it costs more credibility than a plainer, more honestly-scaled register would have.
+
+Consider a manager announcing layoffs. A weak version reaches for a breezy, minimizing register mismatched to the actual stakes: *"Hey everyone! Big changes coming to the team — an exciting shakeup, and unfortunately that means a few folks won't be sticking around. Wishing them the best on their next adventure!"* A stronger version matches plain, direct language to the true weight of what's being said: *"I have to tell you something difficult: eleven people on this team are losing their jobs this week, through no fault of their own. I want to explain why, and what we owe the people leaving, before I say anything else."* Both passages are competently written. The first fails not because its grammar is bad but because its register — casual, celebratory, euphemistic — is the wrong size for the subject it is carrying.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Lincoln's Second Inaugural Address (1865)",
+        content: `Delivered on March 4, 1865, weeks before the Civil War's end and weeks before his own assassination, Lincoln closed his second inaugural address with this passage: "With malice toward none, with charity for all, with firmness in the right as God gives us to see the right, let us strive on to finish the work we are in, to bind up the nation's wounds, to care for him who shall have borne the battle and for his widow and his orphan, to do all which may achieve and cherish a just and lasting peace among ourselves and with all nations."
+
+The occasion could easily have called for a triumphant register: the Union's victory was all but secured, and a lesser speech might have used the moment to celebrate vindication or assign blame. Lincoln's decorum lies precisely in his refusal of that register. The diction is plain and almost liturgical rather than martial or celebratory; the syntax builds through soft, care-oriented infinitives — "to bind up," "to care for," "to do all which may achieve and cherish" — rather than through declarations of triumph. This was the correct fit for an occasion that was not really about victory at all, but about the far harder work of reunifying a country that would have to live with itself afterward. A grander, more self-congratulatory style would have been rhetorically available to him and would have fit the military facts of the moment; it would also have alienated exactly the audience — a soon-to-be-reunified nation, including the defeated South — whose cooperation the speech needed to secure. The plainness is the argument: it enacts the humility and reconciliation it is asking the country to adopt, rather than merely describing them.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Testing Fit Before You Commit to a Register",
+        content: `- Have you matched register — word choice, sentence complexity, formality — to the actual weight of the subject, rather than to how you personally feel about it?
+- Have you considered what your audience's real relationship to you and to the material licenses, rather than defaulting to a habitual register?
+- Is the emotional volume of your language calibrated to what your audience can actually absorb right now, rather than to what would feel satisfying to write?
+- Does your own position — role, credibility, relationship to the subject — actually entitle the register you've chosen, or are you borrowing an authority you haven't earned?
+- If you swapped this passage into a very different occasion, would the mismatch be immediately obvious — confirming that this fit was earned deliberately, not accidental?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Choose a single piece of real or invented news you need to deliver — a departure, a failure, a change in plans, a diagnosis, an award. Write two versions of the same announcement, each 120-200 words: one whose style, tone, and diction genuinely fit the subject, audience, and occasion, and one that is recognizably wrong for the occasion (too casual for something grave, too grand for something small, too clinical for something personal). Label which is which.",
+        instructions:
+          "Do not simply make the 'wrong' version bad writing — make it competent prose in the wrong register, so the contrast demonstrates a mismatch of fit rather than a difference in quality.",
+        minWords: 240,
+        maxWords: 400,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Genuine Register Mismatch Demonstrated",
+            description:
+              "Do the two passages differ specifically in how well style, tone, and diction fit the stated subject, audience, and occasion, rather than merely differing in topic or in quality of writing?",
+          },
+          {
+            order: 2,
+            key: "audience_and_stakes_fit",
+            label: "Style Matches Actual Stakes and Audience",
+            description:
+              "Does the 'fitting' passage calibrate formality, gravity, and vocabulary to the real weight of the subject and the audience's relationship to it, rather than defaulting to a generic or habitual register?",
+          },
+          {
+            order: 3,
+            key: "earned_authority",
+            label: "Register Matches Speaker's Position",
+            description:
+              "Does the fitting passage avoid borrowing a register (heroic, clinical, breezy) that the speaker's actual role or relationship to the subject doesn't license?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "enargeia-vivid-presence",
+    title: "Enargeia: Bringing the Scene Before the Eyes",
+    subtitle: "Vivid detail that makes an argument feel witnessed, not asserted",
+    summary:
+      "How classical enargeia uses selective, concrete sensory detail to make an absent scene feel immediately present — turning an abstract claim into something a reader experiences rather than merely believes.",
+    order: 6,
+    categorySlug: "appeals",
+    deviceSlugs: ["enargeia"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "What Enargeia Actually Is",
+        content: `Enargeia is the classical term — Cicero and Quintilian both wrote about it, sometimes rendering it in Latin as evidentia or demonstratio — for vivid description so concrete that an audience seems to see the scene "before their own eyes" (the phrase ancient critics used was ante oculos) rather than simply hear it reported secondhand. The common misconception is that enargeia just means "more description" — that piling on adjectives, or describing every visible feature of a scene, is what makes writing vivid. It is usually the opposite. Exhaustive description tends to blur into wallpaper; a reader's attention slides off a paragraph that names everything. True enargeia works through selection: a small number of exact, concrete, sensory particulars, chosen precisely because they let the reader reconstruct the rest of the scene themselves. The device does less telling and more implying than it appears to.
+
+Enargeia's importance to the rhetorical appeals is that ancient rhetoricians treated it as proof-adjacent, not merely decorative. By rendering a disputed fact or its consequence vividly present, a writer invites the audience to react as though they were witnessing it directly — and that reaction can carry more persuasive weight than the identical claim stated abstractly. "The policy will cause suffering" is a proposition an audience can accept or doubt at a comfortable distance; a single rendered scene of one particular person's suffering under that policy is much harder to hold at that same distance. This is also exactly why the device carries risk: because its force comes from specificity rather than from volume of feeling, it can be used to make a false or exaggerated claim feel real through sheer vividness. Genuine enargeia earns its immediacy through exact, verifiable particulars; counterfeit enargeia substitutes emotional excess — tears, adjectives, italics — for the concrete detail that would actually justify the feeling.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Techniques for Achieving Vividness",
+        content: `Four moves separate genuine enargeia from generic description:
+
+1. **Choose two or three exact, concrete sensory details rather than cataloguing the scene.** Specificity does the work that volume of detail cannot — one precise, unexpected particular does more than ten generic ones.
+2. **Use immediate, staged syntax.** Short clauses, active verbs, and present-feeling pacing (even when narrating something in the past) put the reader inside the moment rather than being told a summary of what happened.
+3. **Anchor the scene through a single controlling sensation or action** — a sound, a smell, a specific gesture — rather than a list of unconnected facts. The anchor gives the reader's attention somewhere to stand.
+4. **Let the detail argue for you.** Resist appending an explicit moral or conclusion immediately after the vivid image. The strongest use of enargeia trusts the rendered scene to produce the reader's judgment on its own.
+
+Compare a flat, asserted version of a claim about neglect with a rendered one. Weak: *"The conditions at the facility were poor, and residents suffered from inadequate care in an unsanitary environment."* Strong: *"The corridor smelled of bleach laid over something older. In room 14, an untouched water pitcher sat three inches past an old man's reach, a thin ring of dust already settled on its rim. When we asked how long, an aide shrugged without looking up from her clipboard."* The second passage never states that care was inadequate — it doesn't need to. The exact detail (three inches, a ring of dust, a shrug without eye contact) does the arguing that the adjective "poor" only asserts.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Frederick Douglass, Narrative of the Life of Frederick Douglass, an American Slave (1845)",
+        content: `&gt; "I have often been awakened at the dawn of day by the most heart-rending shrieks of an own aunt of mine, whom he used to tie up to a joist, and whip upon her naked back till she was literally covered with blood. No words, no tears, no prayers, from his gory victim, seemed to move his iron heart from its bloody purpose. The louder she screamed, the harder he whipped; and where the blood ran fastest, there he whipped longest. He would whip her to make her scream, and whip her to make her hush; and not until overcome by fatigue, would he cease to swing the blood-clotted cowskin."
+
+Douglass is not arguing, in this passage, that slavery is cruel as a general proposition — he is staging one specific early morning: an exact time (dawn), an exact relation (his own aunt), an exact instrument (a joist, a cowskin whip), an exact sound (shrieks that wake a sleeping child). The sentence "He would whip her to make her scream, and whip her to make her hush" renders the arbitrariness of the violence directly rather than describing it as arbitrary — the reader watches the logic collapse in real time rather than being told it makes no sense. The opening clause, "I have often been awakened... by the most heart-rending shrieks," places the reader in Douglass's own aural position at the moment of waking, so the scene is not observed from a safe narrative distance but entered through the same sense — hearing — that first delivered it to him as a child.
+
+This is enargeia doing exactly the proof-adjacent work classical rhetoricians assigned it: converting a legal and political abstraction — the institution of slavery — into a single, witnessed, remembered event that a reader cannot hold at arm's length the way they could hold an abstract claim about the cruelty of the system. A summary sentence asserting that enslaved people were treated with sadistic cruelty could be nodded past; this scene is considerably harder to nod past.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Testing Whether a Passage Achieves Enargeia",
+        content: `- Have you chosen a small number of exact, concrete sensory details, rather than piling on adjectives or cataloguing every feature of the scene?
+- Does your description place the reader in a specific position — a sound they hear, a moment they're standing inside — rather than summarizing the scene from a distance?
+- Have you let the vivid detail imply your claim, rather than tacking an explicit moral or conclusion onto the end of it?
+- Is every detail in the passage load-bearing — would removing it lose something specific, or is it decorative padding?
+- If a skeptical reader challenged the underlying claim, would this scene function as evidence — a witnessed particular — rather than merely as color?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Choose a real or invented situation involving some form of neglect, harm, injustice, or hardship that you want a reader to feel is real rather than merely believe is true (a workplace, an institution, a policy's effect on one person, and so on). Write a single vivid passage, 180-350 words, that renders one specific scene through concrete sensory detail — sound, sight, smell, a specific gesture, an exact object — so a reader feels they are witnessing the moment rather than being told about it. Do not state your underlying claim directly.",
+        instructions:
+          "Resist the urge to catalogue everything about the scene. Choose only the handful of details that do real work, and let the reader's own reconstruction of the scene carry the argument you want them to reach.",
+        minWords: 180,
+        maxWords: 350,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Genuine Sensory Immediacy",
+            description:
+              "Does the passage render a specific scene through concrete, particular sensory detail that places the reader as if witnessing it, rather than summarizing or asserting a general claim?",
+          },
+          {
+            order: 2,
+            key: "selective_detail",
+            label: "Selection Over Accumulation",
+            description:
+              "Are the details selected sparingly and specifically so each one does real work, rather than forming an exhaustive or generic catalogue of features?",
+          },
+          {
+            order: 3,
+            key: "implicit_argument",
+            label: "Claim Carried by the Scene",
+            description:
+              "Does the vivid scene itself carry the argumentative point without an explicit stated moral or conclusion tacked onto it?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "anadiplosis-and-climax",
+    title: "Anadiplosis and Climax: Building a Chain of Escalation",
+    subtitle: "Repeating a clause's last word as the next clause's first, link by link, toward a climax",
+    summary:
+      "How repeating the final word of one clause at the start of the next (anadiplosis) can be chained across three or more links into climax, or gradatio — a rhetorical staircase that escalates toward a culminating idea.",
+    order: 5,
+    categorySlug: "repetition",
+    deviceSlugs: ["anadiplosis", "climax"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "What Anadiplosis Actually Is",
+        content: `Anadiplosis is not simply "repeating a word" — plenty of repetition devices do that. What defines anadiplosis specifically is *position*: the last word or phrase of one clause becomes the first word or phrase of the next. "The mission demands sacrifice. Sacrifice, in turn, demands courage" is anadiplosis, because "sacrifice" closes the first clause and opens the second. A sentence like "The mission demands sacrifice and courage" repeats no word at all and isn't anadiplosis; a sentence like "The mission is hard. The mission is worth it" repeats a word but at the *same* position in both clauses (the start), which makes it anaphora, not anadiplosis. The hinge position — last word becomes first word — is the whole device.
+
+That hinge does specific work: it forces the reader to carry a term forward across a clause boundary they would otherwise treat as a full stop, so the two clauses read as linked rather than merely adjacent. Extend that hinge across three or more clauses, each one escalating in weight past the last, and you get climax (from the Greek *klimax*, "ladder"; also known by its Latin name, gradatio) — a chain of anadiplosis that doesn't just link clauses but climbs, so the final link lands as a culmination the earlier ones were quietly building toward.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Building a Chain That Climbs Instead of Loops",
+        content: `A chain built on anadiplosis can fail in one specific way: it can repeat correctly at every hinge and still go nowhere, because the ideas being chained loop back on themselves instead of building. The mechanical requirement — carry the exact word forward — is easy to satisfy without doing the harder work of making each link matter more than the one before it.
+
+Compare: *"Practice creates habit. Habit creates repetition. Repetition creates practice."* Every hinge is technically correct, but the chain closes in a circle — by the third clause we're back where we started, and the passage feels like a syllogism gone stale rather than an escalation. Now compare: *"Effort produces skill. Skill produces confidence. Confidence produces the willingness to take a real risk. And the willingness to take a real risk, more than any inherited talent, produces a life worth remembering."* Each link is measurably heavier than the last — skill matters more than effort, confidence enables more than skill alone, and risk-taking is reframed in the final clause as the actual source of a meaningful life. The final clause also breaks the exact hinge pattern slightly, restating a fuller phrase rather than a single word — a deliberate signal that this is the last rung, not another link, which is the same technique that lets a climax resolve instead of merely continuing indefinitely.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Paul's Epistle to the Romans (5:3-5, King James Version)",
+        content: `&gt; "...we glory in tribulations also: knowing that tribulation worketh patience; And patience, experience; and experience, hope: And hope maketh not ashamed; because the love of God is shed abroad in our hearts by the Holy Ghost which is given unto us."
+
+This passage is one of the oldest examples cited in rhetorical handbooks specifically because the chain is so exact: "tribulation" closes the first clause and opens the second ("tribulation worketh patience... And patience"), "patience" closes that clause and opens the third ("patience, experience; and experience"), and "experience" does the same into "hope." Four terms — tribulation, patience, experience, hope — are welded together across four clauses, with no term introduced that isn't first earned by the one before it.
+
+The chain is also not circular: it moves from something painful (tribulation) to something increasingly abstract and valuable (patience, then experience, then hope), arriving finally at the claim that this hope will not disappoint, because it rests on God's love. The theological argument and the rhetorical structure are the same thing here — Paul isn't decorating an argument with a device, he's using the device to enact the very claim he's making: that one state of mind genuinely, necessarily gives rise to the next.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Building Anadiplosis and Climax",
+        content: `- Does the last word or phrase of one clause become the first word or phrase of the next, exactly — not a synonym or paraphrase?
+- If you've chained three or more links, does each one escalate in weight or consequence, rather than looping back to where the chain started?
+- Could a reader name what's actually increasing across the chain (stakes, abstraction, intensity), or is the escalation only implied by tone?
+- Does the final link break the pattern in some small way — fuller phrasing, a changed sentence shape — to mark it as the climax rather than just the next rung?
+- Read the chain aloud: does removing a middle link collapse the argument, proving each one is doing real work rather than padding the sentence?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 200-400 word passage built around a chain of anadiplosis: at least three consecutive clauses in which the last word or phrase of one clause becomes the first word or phrase of the next, escalating toward a genuine climax.",
+        instructions:
+          "Build a chain of at least three links (four clauses). Each link should raise the stakes, abstraction, or intensity of the one before it — avoid a chain that loops back to its starting idea. You may break the exact repetition pattern in the final clause to mark it as the climax.",
+        minWords: 200,
+        maxWords: 400,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Anadiplosis Correctly Formed",
+            description:
+              "Does at least one clause end on a word or phrase that is then repeated as the opening of the next clause, rather than merely restating an idea using different words?",
+          },
+          {
+            order: 2,
+            key: "escalation",
+            label: "Chain Escalates Toward a Climax",
+            description:
+              "Does each successive link in the chain escalate in weight, stakes, or consequence — rather than looping back on itself or staying flat — culminating in a genuine climax (gradatio)?",
+          },
+          {
+            order: 3,
+            key: "chain_integrity",
+            label: "Repetition Is Exact, Not Approximate",
+            description:
+              "Is the repeated word or phrase carried forward exactly (not swapped for a synonym) at each link, so the chain reads as a deliberate structural device rather than a coincidental echo?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "epizeuxis-and-diacope",
+    title: "Epizeuxis and Diacope: Repetition With No Room to Breathe",
+    subtitle: "Repeating a word immediately, or breaking that repetition with a single interrupting phrase",
+    summary:
+      "Two closely related devices of immediate, emotionally charged repetition — epizeuxis (repeating a word back-to-back) and diacope (repeating it with a brief interruption) — and how to use them at a genuine peak of feeling rather than as a verbal tic.",
+    order: 6,
+    categorySlug: "repetition",
+    deviceSlugs: ["epizeuxis", "diacope"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "What Epizeuxis and Diacope Actually Are",
+        content: `Immediate word repetition is usually treated as a first-draft flaw to be edited out — "very very," "no no," the kind of accidental doubling a copyeditor strikes automatically. Epizeuxis is what that same repetition becomes when it's deliberate: a word or phrase repeated back-to-back, with nothing in between, because a single instance of the word can't carry the emotional weight the moment demands. "Horror" said once is a description; "horror, horror, horror" is closer to the sound someone actually makes when language is failing them in real time. The repetition isn't redundant — it's iconic, performing the very inarticulacy it names.
+
+Diacope is the same impulse with one difference: a brief phrase interrupts the two instances of the repeated word instead of nothing at all. "Gone. Gone" is epizeuxis; "Gone — well and truly gone" is diacope, because the interrupting phrase sits between the two repetitions. That interruption isn't wasted space — it's usually where the writer sneaks in the detail that makes the repeated word specific rather than generic ("well and truly" tells you this isn't a temporary absence). The two devices sit on a continuum of the same technique: epizeuxis is repetition with zero gap, diacope is repetition with a gap small enough that the two instances still feel like one continuous outburst rather than two separate statements.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Where the Device Earns Its Place — and Where It's a Tic",
+        content: `Both devices depend entirely on restraint. A word repeated at a real peak of shock, grief, or urgency reads as involuntary — as though the writer couldn't help it. The identical repetition used routinely, or used to inflate an ordinary moment ("very, very tired," "really, really wanted it"), reads as a verbal tic, because there's no actual spike in intensity to justify the doubling. The test is whether the sentence would feel like a slight anticlimax with only one instance of the word — if it wouldn't, the repetition isn't earning its keep.
+
+Compare: *"She was very, very sad when she heard, and it was a really, really hard day."* Both repetitions here are filler intensifiers doing a job any single strong word could do alone — the sentence would lose nothing by cutting them. Now compare: *"Gone. Gone — not delayed, not misplaced, gone — was the only word that fit, and every attempt to soften it only made the truth louder."* The first "Gone. Gone" is epizeuxis at the sentence's opening, functioning almost like a held breath before the sentence continues; the second pairing is diacope, with the interrupting phrase ("not delayed, not misplaced") doing real work — ruling out the softer alternatives the word might otherwise imply — before the repeated word returns to close off any remaining doubt.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Shakespeare: Macbeth and Richard III",
+        content: `Epizeuxis (Macduff, discovering the murdered king, *Macbeth*, Act 2, Scene 3):
+&gt; "O horror, horror, horror! Tongue nor heart cannot conceive nor name thee!"
+
+Diacope (Richard III, unhorsed on the battlefield, *Richard III*, Act 5, Scene 4):
+&gt; "A horse! a horse! my kingdom for a horse!"
+
+Macduff's line repeats "horror" three times with nothing between the instances — pure epizeuxis — and the next clause explains why: he immediately says that tongue and heart *cannot* name what he's seen, so the triple repetition is doing the naming that ordinary vocabulary has just failed to do. Richard's line starts the same way — "a horse! a horse!" repeats with no gap, epizeuxis exactly like Macduff's — but then the pattern shifts: instead of a third bare repetition, the phrase "my kingdom for" interrupts before "a horse" returns a third time. That interruption is the entire point of the line: it converts a cry of panic into a specific, staggering offer, naming the exact price — a kingdom — the desperate king is willing to pay. The line moves from epizeuxis into diacope in real time, and the shift tracks Richard's own shift from wordless panic to a concrete, ruinous bargain.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Using Epizeuxis and Diacope",
+        content: `- Is the repeated word or phrase placed at a genuine peak of emotion or urgency, rather than used to inflate an ordinary moment?
+- For epizeuxis, are the two (or more) instances truly adjacent, with nothing at all between them?
+- For diacope, is the interrupting material brief, and does it add real information — rather than just delaying the repeat?
+- Would the sentence feel like an anticlimax with only a single instance of the word, proof the repetition is earning its place?
+- Have you reserved the device for one moment in the passage, rather than repeating the pattern until it reads as a tic?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 200-350 word passage — narrative or reflective — that includes one clear moment of epizeuxis (a word or phrase repeated immediately, with nothing between the instances) and one clear moment of diacope (a word or phrase repeated with a brief interrupting phrase between the two instances).",
+        instructions:
+          "Both moments should occur at genuine peaks of feeling or urgency in the passage — do not use either device as a routine intensifier (e.g., 'very, very'). The interrupting phrase in your diacope moment should add real information, not just delay the repeat.",
+        minWords: 200,
+        maxWords: 350,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Epizeuxis Correctly Formed",
+            description:
+              "Is there at least one moment where a word or phrase is repeated immediately, with no intervening words, at a genuine peak of emotional intensity rather than as filler?",
+          },
+          {
+            order: 2,
+            key: "diacope_used",
+            label: "Diacope Correctly Formed",
+            description:
+              "Is there at least one moment where a word or phrase is repeated with a brief interrupting word or phrase between the two instances, where the interruption itself adds meaning rather than just delaying the repeat?",
+          },
+          {
+            order: 3,
+            key: "restraint",
+            label: "Reserved for a Single Climactic Moment",
+            description:
+              "Are both devices used sparingly — reserved for one genuine peak in the passage — rather than scattered throughout until they read as a verbal tic?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the surrounding prose clear, purposeful, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "isocolon-and-measured-phrasing",
+    title: "Isocolon: Balance by Equal Measure",
+    subtitle: "When clauses match not just in structure but in length",
+    summary:
+      "How isocolon tightens parallelism by requiring matched clauses to be roughly the same length as well as the same grammatical shape, producing a rhythmic 'click' of balance that looser parallel structures don't achieve.",
+    order: 5,
+    categorySlug: "balance",
+    deviceSlugs: ["isocolon"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "Isocolon: Equal Members, Not Just Matching Shapes",
+        content: `Isocolon (from the Greek *isos*, "equal," and *kolon*, "limb" or "clause") is the pairing or sequencing of clauses that match not only in grammatical form but in length — roughly the same number of words or syllables, falling into the same rhythmic stride. This is the common misconception worth correcting: isocolon is often treated as a synonym for parallelism in general, but parallelism only requires that coordinate elements share grammatical structure ("she came, she saw, she left" is parallel even if you swap in a much longer third clause). Isocolon adds a second, stricter requirement — that the members also be roughly equal in weight, so the ear registers them as the same size, not just the same shape.
+
+That second requirement is what produces the effect people actually notice: the felt symmetry of a well-built isocolon, the sense that a sentence has been machined rather than merely arranged. A pair or series can be grammatically parallel and still land unevenly if one clause runs twice as long as its neighbor. Isocolon is what happens when a writer goes back and trims or pads until the clauses are truly interchangeable in size, not just in form. It overlaps with tricolon (a series of exactly three matched units) and often co-occurs with antithesis or chiasmus, but it is defined independently of both — a two-part isocolon that expresses no contrast at all, and no reversal of word order, is still isocolon as long as its two halves are equal.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Trimming Until It Balances",
+        content: `Building isocolon is mostly a revision skill: write the parallel clauses first, then measure them against each other and cut or expand until they sit at the same length. Filler words, hedges, and extra qualifiers are usually what's making one clause outrun its partner, and removing them tends to sharpen the sentence's meaning at the same time it equalizes its rhythm — the two edits reinforce each other.
+
+Weak (parallel in structure, unequal in length): "The new manager listened carefully to every complaint the staff brought to her, and she made changes." Both halves are clauses joined by "and," so the sentence is technically parallel, but the first clause is long and specific while the second is short and vague, so the sentence tips over rather than balancing.
+
+Strong (isocolon): "She heard every complaint; she fixed every problem." Now both clauses are four words, both open with "she," both close with a paired noun phrase, and both carry equal grammatical weight. The meaning hasn't been softened — if anything it's sharper — but the sentence now lands with a click instead of a shrug. Isocolon rewards this kind of ruthless trimming: the goal isn't to add ornamental symmetry but to find the shortest form in which the two ideas are already, in fact, equivalent.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Ecclesiastes 3:1-4, King James Version (1611)",
+        content: `Few passages in English rely on isocolon as thoroughly as the "season" passage from Ecclesiastes:
+
+&gt; "To every thing there is a season, and a time to every purpose under the heaven: A time to be born, and a time to die; a time to plant, and a time to pluck up that which is planted; A time to kill, and a time to heal; a time to break down, and a time to build up; A time to weep, and a time to laugh; a time to mourn, and a time to dance."
+
+Each pair here — "a time to be born, and a time to die," "a time to kill, and a time to heal" — is built from two clauses of nearly identical length and identical shape ("a time to" plus a one-syllable or two-syllable verb), differing only in the single word that carries the opposition. Because the surrounding structure is so exactly equal, that one word is the only thing left for the ear to notice, so the contrast (birth against death, killing against healing) arrives with unusual force even though it is stated as flatly as possible.
+
+The passage also shows how isocolon scales: it isn't limited to a single balanced pair but can be extended across many pairs in sequence, each one reinforcing the pattern the last one established. By the time the passage reaches "a time to weep, and a time to laugh," the reader has been trained by five prior pairs to expect exact equality, so any deviation from that template would now read as a deliberate break rather than mere variation.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Using Isocolon",
+        content: `- Are the matched clauses not just the same grammatical shape, but roughly the same length — similar word count, similar syllable count?
+- Does reading the passage aloud produce an even, matched rhythm, or does one clause noticeably outrun the other?
+- Have you cut filler or hedging words from the longer clause rather than padding the shorter one, so the balance comes from precision rather than inflation?
+- If the isocolon carries a contrast or comparison, is that contrast concentrated in as few words as possible, so the equal structure around it makes the difference stand out?
+- Have you used the device only where the underlying ideas are genuinely equivalent in weight — not forced into false balance where one side actually matters more than the other?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 150-300 word passage — a piece of advice, a reflection, or a short argument — built around at least one isocolon: two or more clauses matched in both grammatical structure and length.",
+        instructions:
+          "Draft the parallel clauses first, then revise them so they are close to equal in word count and syllable count. At least one isocolon pair should carry a real contrast or comparison, not just decorative repetition.",
+        minWords: 150,
+        maxWords: 300,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Correct Use of Isocolon",
+            description:
+              "Does the passage include at least one instance of clauses matched in both grammatical structure and approximate length, not merely matched in structure alone?",
+          },
+          {
+            order: 2,
+            key: "balance_and_rhythm",
+            label: "Rhythmic Balance",
+            description:
+              "Read aloud, do the matched clauses land with an even, equal-weighted rhythm rather than one clause noticeably outrunning the other?",
+          },
+          {
+            order: 3,
+            key: "meaningful_equivalence",
+            label: "Genuine Equivalence",
+            description:
+              "Does the isocolon express ideas that are actually comparable in weight or significance, rather than forcing unequal ideas into artificial balance?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "hendiadys-and-doubled-nouns",
+    title: "Hendiadys: Splitting One Idea into Two Nouns",
+    subtitle: "Why 'sound and fury' hits harder than 'furious sound'",
+    summary:
+      "How hendiadys expresses a single complex idea by coordinating two nouns with 'and' instead of using a noun and its modifier, and why the split creates weight and strangeness that a plain adjective-noun pairing can't.",
+    order: 6,
+    categorySlug: "balance",
+    deviceSlugs: ["hendiadys"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "Hendiadys: One Idea, Two Nouns",
+        content: `Hendiadys (from the Greek *hen dia dyoin*, "one through two") takes an idea that would ordinarily be expressed as a modifier and a noun — "nice warmth," "furious sound" — and instead expresses it as two nouns joined by "and": "nice and warmth" (or, in its familiar colloquial form, "nice and warm"), "sound and fury." Grammatically the two nouns are coordinate, equal partners in an "and" construction. Conceptually they are not two separate things at all — they fuse into a single, heightened impression, with one noun doing the work a modifier would normally do.
+
+The misconception worth correcting is that hendiadys is just redundancy — two words for one thing, padding dressed up as a device. Genuine hendiadys does the opposite of padding: it doesn't repeat a single meaning twice, it manufactures a meaning that neither noun quite has on its own. "Sound and fury" is not "sound" plus, separately, "fury" — it's a sound that is itself furious, an image stranger and more violent than "a furious sound" would produce, because the grammar refuses to subordinate one term to the other. It's also worth distinguishing hendiadys from an ordinary compound like "bread and butter" or "law and order," where the two nouns really are two distinct things sitting side by side. Hendiadys only occurs when the two nouns, despite their coordinate grammar, are functioning as a single idea.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Splitting the Modifier Off the Noun",
+        content: `The mechanical move behind hendiadys is simple: take a noun phrase built from an adjective and a noun, and instead coordinate two nouns (or nominalize the adjective) joined by "and." The unusual grammar slows the reader down for a beat, and that beat is where the device's weight comes from — the two nouns don't collapse back into a single modified noun as quickly as the mind expects, so the image lingers and intensifies before it resolves.
+
+Weak (ordinary adjective + noun): "They crossed the cold, dark night without a lantern." This is perfectly clear, but it moves past the description quickly — "cold" and "dark" are just qualities attached to "night," processed and discarded in an instant.
+
+Strong (hendiadys): "They crossed the cold and the dark of that night without a lantern." Now "cold" and "the dark" are nouns in their own right, coordinated rather than subordinated, and the sentence asks the reader to hold both as substantial things being crossed — not adjectives describing the night, but almost co-equal terrains alongside it. The device tends to suit moments a writer wants to slow down and weight — a threat, a grief, a landscape — rather than routine description, since overusing it across a passage makes ordinary modifiers start to feel needlessly inflated.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "William Shakespeare, Macbeth (c. 1606)",
+        content: `The most frequently cited hendiadys in English literature comes from Macbeth's final soliloquy, after learning of Lady Macbeth's death:
+
+&gt; "It is a tale / Told by an idiot, full of sound and fury, / Signifying nothing."
+
+"Sound and fury" coordinates two nouns that, read literally, name two different things — a noise, and an emotion. But Macbeth isn't describing a sound accompanied by a separate fury; he's describing a single quality of raging, meaningless noise, the kind an idiot's tale would be "full of." Rewritten as a plain modifier — "full of furious sound" — the phrase would be clearer but flatter, subordinating "furious" to "sound" the way ordinary grammar expects. By coordinating the two nouns instead, Shakespeare keeps both terms equally weighted and lets the reader fuse them, which is exactly what the line needs: it arrives at the climax of a speech arguing that life itself is empty noise dressed up as meaning, and the ungrammatical-feeling doubling of "sound and fury" enacts that excess and disorder at the level of the sentence, not just its content.
+
+The line also demonstrates how hendiadys concentrates meaning at the point of maximum despair in the speech — it is the phrase readers remember from the entire soliloquy, disproportionate to its three words, because the device forces a small pause exactly where the idea is most bleak.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Using Hendiadys",
+        content: `- Have you taken an ordinary adjective-and-noun phrase and split it into two coordinate nouns joined by "and"?
+- Do the two nouns fuse into a single heightened idea, rather than naming two genuinely separate things (which would just be an ordinary compound, not hendiadys)?
+- Does the doubled construction slow the sentence down at a moment that actually deserves the extra weight, rather than being applied to routine description?
+- Would rewriting the phrase back into a plain modifier-and-noun form ("furious sound" instead of "sound and fury") noticeably flatten the effect — confirming the split is doing real work?
+- Have you used the device sparingly, so its slight grammatical strangeness still registers rather than reading as a verbal tic?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 150-300 word passage — descriptive, reflective, or narrative — that includes at least one clear hendiadys: an ordinary adjective-and-noun idea expressed instead as two coordinate nouns joined by 'and.'",
+        instructions:
+          "Use no more than one or two instances of the device. Make sure each pair of nouns genuinely fuses into a single idea rather than naming two separate things, and place it at a moment in the passage that can bear the added weight.",
+        minWords: 150,
+        maxWords: 300,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Correct Use of Hendiadys",
+            description:
+              "Does the passage include at least one instance of two coordinate nouns joined by 'and' that function as a single fused idea, rather than an ordinary adjective-noun phrase or a genuine compound of two separate things?",
+          },
+          {
+            order: 2,
+            key: "conceptual_fusion",
+            label: "Genuine Fusion, Not Redundancy",
+            description:
+              "Do the two coordinated nouns produce a meaning distinct from — and stronger than — simply restating the same quality twice?",
+          },
+          {
+            order: 3,
+            key: "placement_and_restraint",
+            label: "Weighted Placement and Restraint",
+            description:
+              "Is the device placed at a moment in the passage that earns its added weight, and used sparingly enough that it still reads as deliberate rather than habitual?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "personification-and-prosopopoeia",
+    title: "Personification and Prosopopoeia: Lending a Human Face to the Non-Human",
+    subtitle: "How attributing a feeling to a thing differs from giving that thing a voice to speak",
+    summary:
+      "How personification transfers human agency and interiority onto a non-human or abstract subject, how prosopopoeia goes further and lets that subject speak in its own first-person voice — and why the second device is a demanding, extended case of the first rather than a separate trick.",
+    order: 5,
+    categorySlug: "tropes",
+    deviceSlugs: ["personification", "prosopopoeia"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "Two Degrees of Humanizing the Non-Human",
+        content: `Personification is often treated as pure decoration — a "poetic" habit of saying "the wind whispered" or "the sun smiled" to make description feel less flat. That undersells what the device actually does. Personification is a substitution trope: it transfers human agency, motive, or interiority onto something that literally possesses none, and that transfer changes how a reader assigns responsibility, sympathy, or blame. Saying "the market panicked" rather than "prices fell sharply as many people sold at once" doesn't just decorate a fact — it recasts a diffuse, leaderless process as a single anxious actor, which shapes how the reader thinks about cause and fault even when no one intends a lie.
+
+Prosopopoeia is not a different device so much as personification taken to its logical extreme. Ordinary personification attributes a trait, an emotion, or an action to a non-human or abstract subject, usually briefly, within a sentence or two ("Opportunity knocks," "History will judge us"). Prosopopoeia commits further: it puts actual words into that subject's mouth, sustaining a first-person voice for an entity that cannot literally speak — an absent person, a dead ancestor, an abstraction like Justice or Death, an inanimate object. Every instance of prosopopoeia is personification, but not every personification goes as far as giving its subject a quoted voice.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Specificity Is What Makes It Work",
+        content: `Weak personification borrows a single verb and stops there: "the wind howled," "time marches on," "the deadline was creeping closer." These phrases are so worn that a reader's mind slides past them without any real transfer of agency happening — they register as dead metaphor, not as a live rhetorical move. Strong personification commits to a specific, consistent set of human behaviors, so the non-human subject accumulates an implied psychology rather than borrowing one loose adjective. Compare: "The deadline was approaching fast, and it felt stressful" (weak — generic, tells the reader the feeling instead of producing it) against "The deadline had been circling the calendar for a week, tapping its foot at the top of every page, and by Thursday it had stopped waiting politely and started rattling the doorknob" (strong — a consistent, specific character: impatient, then rude, drawn out across several concrete actions).
+
+Prosopopoeia asks for one further commitment: a moment where the subject stops being described and starts speaking. Extending the example above, a writer moving from personification into prosopopoeia might add: "If the deadline could talk, it would not have argued or threatened. It would only have said, evenly, 'I have already arrived. You are the one who is late.'" The shift has to be legible — through quotation marks, a clear framing clause, or both — so the reader knows a line is the subject's own voice rather than continued narration. Prosopopoeia that blurs this boundary reads as confusing rather than eerie or persuasive.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Dickinson's Death as Suitor (Personification) and Shelley's Speaking Ruin (Prosopopoeia)",
+        content: `Emily Dickinson's "Because I could not stop for Death" opens with one of the most famous personifications in American poetry:
+
+&gt; "Because I could not stop for Death – / He kindly stopped for me – / The Carriage held but just Ourselves – / And Immortality."
+
+Death is not rendered as skeleton or reaper but as an unhurried, courteous gentleman caller who "kindly" interrupts the speaker's busy day for a carriage ride. The personification is sustained and specific — Death has manners, a vehicle, an unhurried pace — rather than borrowed from a single stock verb, and the incongruity between the genteel social scene and the subject's actual finality is exactly where the poem's quiet unease lives.
+
+For prosopopoeia, Percy Bysshe Shelley's "Ozymandias" gives a shattered monument an actual first-person voice, reported secondhand by a traveler describing the ruined statue's pedestal:
+
+&gt; "My name is Ozymandias, king of kings: / Look on my works, ye Mighty, and despair!"
+
+The inscription lets a long-dead king address the reader directly, in his own words, across centuries — a textbook instance of prosopopoeia, since a voiceless object (a broken pedestal) is made to speak for an absent, now-silent figure. The device compounds the poem's central irony: the boast of permanence survives only as a fragment of speech carved on the very ruin that disproves it, so the "voice" Shelley grants the statue ends up testifying against its own claim.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Working with Personification and Prosopopoeia",
+        content: `- Does your personified subject display a specific, consistent set of human behaviors, rather than one borrowed, cliché verb?
+- If you use prosopopoeia, is the shift into the subject's own first-person voice clearly marked, so the reader isn't unsure whether a line is narration or quoted speech?
+- Have you avoided switching the personified subject's implied personality partway through (patient, then panicked, then indifferent) without a reason?
+- Does the personification or prosopopoeia change how the reader assigns responsibility, sympathy, or blame — or is it just decorative filler that could be cut without loss?
+- Would a reader recognize the device as a deliberate figurative move, rather than mistaking it for a literal (and false) claim that the subject actually acted or spoke?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 200-400 word passage (personal essay, descriptive scene, or short narrative) that includes at least one clear instance of personification — a non-human or abstract subject given specific, sustained human behavior, not just a single borrowed verb — and one clear instance of prosopopoeia, where that same subject (or a different one) is given actual first-person, quoted speech.",
+        instructions:
+          "Keep the personification specific and consistent: commit to one implied psychology for the subject rather than switching traits at random. When you shift into prosopopoeia, mark the change clearly, with quotation marks or a framing line, so the reader knows the subject is now speaking in its own voice rather than merely being described.",
+        minWords: 200,
+        maxWords: 400,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Correct, Distinct Use of Personification and Prosopopoeia",
+            description:
+              "Does the passage include a clear, sustained instance of personification (specific, consistent human behavior attributed to a non-human or abstract subject) and a clear instance of prosopopoeia (that subject, or another, given actual first-person speech)?",
+          },
+          {
+            order: 2,
+            key: "specificity",
+            label: "Personification Is Specific, Not Generic",
+            description:
+              "Does the personified subject display a coherent, specific implied psychology — a consistent motive, habit, or attitude — rather than a single cliché verb attached without development?",
+          },
+          {
+            order: 3,
+            key: "voice_distinction",
+            label: "Prosopopoeia's Voice Is Clearly Marked",
+            description:
+              "Is it unambiguous where description ends and the subject's own first-person voice begins, so the reader is never left wondering whether a line is narration or quoted speech?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "oxymoron-and-paradox",
+    title: "Oxymoron and Paradox: Contradiction as a Path to Truth",
+    subtitle: "How a two-word contradiction and a whole-sentence one work by the same logic, at different scales",
+    summary:
+      "How oxymoron compresses a genuine contradiction into a single tight phrase and paradox extends the same structure across a full claim — why both devices work only when the surface contradiction resolves into a coherent point, rather than remaining pure nonsense.",
+    order: 6,
+    categorySlug: "tropes",
+    deviceSlugs: ["oxymoron", "paradox"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "Contradiction at Two Scales",
+        content: `Oxymoron and paradox are often filed under wordplay — a "clever error," good for a joke ("jumbo shrimp") but not for serious argument. That dismissal misses why the devices exist at all. Both work by placing two apparently contradictory terms next to each other and trusting the reader to find the level at which both are simultaneously true. Oxymoron compresses this into the smallest possible unit, usually a noun and a modifier that seem to cancel each other out ("cruel kindness," "loud silence," "bittersweet"). Paradox performs the identical maneuver at the scale of a full clause or sentence ("You have to be cruel to be kind," "The more you know, the more you realize you don't know"). The mechanism is the same; only the amount of contradictory material being compressed changes.
+
+The common misconception treats the contradiction as the whole point — as if the device exists to be startling or funny and stops there. In serious use, the contradiction is a means, not an end: it exists because ordinary, non-contradictory vocabulary fails to name an experience that really does contain two opposed qualities at once. "Bittersweet" survives as a word not because it's a cute paradox but because plenty of real memories genuinely are both bitter and sweet simultaneously, and no single unmixed adjective captures that.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Making the Contradiction Resolve, Not Just Confuse",
+        content: `An oxymoron works when both of its terms are genuinely, simultaneously true of the same subject — not merely two intensifiers slapped together for effect. It fails when the pairing is stale enough that the reader stops noticing there's a contradiction at all: "pretty ugly" or "awfully good" register as intensifiers, not as live figures, because overuse has worn the contradiction smooth. A paradox needs the same genuine double-truth, but because it operates at sentence length rather than two words, it usually also needs nearby context — an explanatory clause, a specific situation — to guide the reader toward the resolution; a bare contradiction with no supporting context reads as confusion rather than insight.
+
+Compare a stale pair against an original one. Weak oxymoron: "It was a pretty ugly situation" — a dead intensifier, no real insight. Strong oxymoron: "Their goodbye was a cruel kindness — the mercy of finally saying, out loud, what both of them had known for months." Weak paradox: "You have to be cruel to be kind" — true, but so familiar it does no fresh work. Strong paradox: "The last honest thing he did was lie, so the truth would survive him." In the strong versions, the surrounding clause does the work of showing the reader exactly how the contradictory terms can both be true — which is what separates a resolved paradox from a phrase that merely sounds clever.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Romeo's Oxymorons of Lovesickness and Orwell's Paradoxes of Doublethink",
+        content: `Before Romeo has even met Juliet, Shakespeare has him describe the disorienting feeling of infatuation entirely through a cluster of oxymorons, in *Romeo and Juliet*, Act 1, Scene 1:
+
+&gt; "Why, then, O brawling love! O loving hate! / O any thing, of nothing first create! / O heavy lightness, serious vanity, / Misshapen chaos of well-seeming forms, / Feather of lead, bright smoke, cold fire, sick health, / Still-waking sleep, that is not what it is!"
+
+Each pair — brawling love, loving hate, heavy lightness, cold fire — resolves the same way: love, as Romeo experiences it here, really does feel like two opposed sensations at once, and no single unmixed word captures that. The density of the cluster does further work beyond any one pairing: piling up contradiction after contradiction rhetorically enacts Romeo's emotional incoherence, so the form of the speech mirrors the confusion it describes.
+
+Paradox can be used more critically, to characterize a way of thinking the author does not endorse rather than to state a truth the author holds. In George Orwell's *1984*, the ruling Party's three slogans, displayed on the face of the Ministry of Truth, are: "WAR IS PEACE. FREEDOM IS SLAVERY. IGNORANCE IS STRENGTH." Unlike Romeo's oxymorons, these paradoxes are not meant to resolve into a truth the reader accepts — they are presented so the reader recognizes doublethink, the Party's demand that citizens hold contradictory beliefs simultaneously as an act of political submission. Orwell uses paradox here to diagnose a technique of totalitarian control, which shows the device can characterize and critique a way of thinking just as effectively as it can state a genuine insight.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Working with Oxymoron and Paradox",
+        content: `- Are both contradictory terms in your oxymoron genuinely, simultaneously true of the subject, rather than two intensifiers stacked for effect?
+- Have you avoided reaching for a stale, worn oxymoron or paradox that no longer registers as a live contradiction?
+- Does your paradox have enough surrounding context (an explanatory clause, a specific situation) for the reader to resolve it, rather than being left as an unexplained contradiction?
+- Is your paradox meant to state a truth you hold, or to characterize a way of thinking you're critiquing — and is that distinction clear to the reader?
+- Could a reader mistake your oxymoron or paradox for a simple error or careless phrasing, rather than a deliberate figure? If so, the surrounding sentence needs to signal intent more clearly.`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 200-400 word passage of persuasive or reflective prose that includes at least one original oxymoron (a compressed, two- or three-word phrase yoking genuinely contradictory terms) and one original paradox (a full-sentence or full-clause claim that appears self-contradictory but resolves into a coherent point given its surrounding context).",
+        instructions:
+          "Do not reuse well-worn oxymorons or paradoxes ('bittersweet,' 'you have to be cruel to be kind') — invent your own. Make sure the sentences around your paradox give the reader enough context to resolve it; a paradox with no supporting context reads as confusion rather than insight.",
+        minWords: 200,
+        maxWords: 400,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Correct, Original Use of Oxymoron and Paradox",
+            description:
+              "Does the passage include an original oxymoron (contradictory terms compressed into a single phrase) and an original paradox (a longer self-contradictory claim that resolves on reflection), each functioning as intended rather than as a lucky accident?",
+          },
+          {
+            order: 2,
+            key: "resolves_meaningfully",
+            label: "Contradiction Resolves Into Insight",
+            description:
+              "Do both the oxymoron and the paradox genuinely resolve — is there a level at which both contradictory terms are true at once — rather than remaining pure nonsense or a superficial clash of adjectives?",
+          },
+          {
+            order: 3,
+            key: "context_support",
+            label: "Surrounding Context Guides the Resolution",
+            description:
+              "Does the passage give the reader enough surrounding context (explanation, tone, situation) to resolve the paradox specifically, rather than leaving it as an isolated, unexplained contradiction?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "rhetorical-question-erotema",
+    title: "The Rhetorical Question: Asking Without Expecting an Answer",
+    subtitle: "Posing a question so loaded that silence is the only answer it needs",
+    summary:
+      "How erotema uses a question to assert or deny something the audience is meant to answer only in their own mind — and how it differs from hypophora, which answers its own question aloud.",
+    order: 5,
+    categorySlug: "argumentation",
+    deviceSlugs: ["erotema"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "What Erotema Actually Is",
+        content: `Erotema — the traditional term for what's commonly called a rhetorical question — is a question posed not to gather information but to assert or deny a point so strongly that stating it directly would be redundant. The common misconception is that erotema is simply any question asked in the course of an argument, or that it's the same device as hypophora (the question a writer poses and then answers). Neither is true. A genuine information-seeking question invites an actual, possibly varied, answer. Erotema does the opposite: it's constructed so that only one answer is even conceivable, and the writer never states that answer — the question's phrasing does all the work of implying it.
+
+This is also what separates erotema from hypophora, covered elsewhere in this course. Hypophora poses a question and then explicitly answers it in the writer's own voice, using the question mainly as a structural hinge to introduce content that follows. Erotema poses a question and stops — no answer follows, because none needs to. If a question is immediately followed by the writer supplying its answer, it has become hypophora, not erotema, and it does a different job: hypophora carries information forward; erotema converts an unstated conclusion into something the reader feels they arrived at themselves.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Earning the Implied Answer",
+        content: `Erotema's persuasive power depends entirely on how obvious the implied answer genuinely is to the audience being addressed — which is exactly where writers most often overreach. It's tempting to reach for a rhetorical question to stand in for an argument you haven't actually made yet, hoping the question mark will supply the missing premises. It won't: if a reader could plausibly answer "well, actually, no," the question hasn't functioned as erotema at all — it has just exposed a gap where reasoning was supposed to be.
+
+The device works when it caps material the writer has already built, rather than substituting for material never built. Compare:
+
+Weak: "The board cut arts funding again this year. Isn't it time we finally took education seriously?"
+This fails because the conclusion ("take education seriously") doesn't follow tightly from the single fact given — the connection between one funding cut and a sweeping indictment is asserted by the question's tone, not earned by anything preceding it. A skeptical reader can simply decline to supply the intended answer.
+
+Strong: "The board has cut arts funding for the third year running, eliminated its counseling staff last spring, and is now proposing to cut the library budget too. At what point does 'temporary belt-tightening' stop describing a hardship and start describing the district's actual priorities?"
+Here the implied answer ("at this point, now") is forced by an accumulation of three specific facts stated immediately before the question, not by the question's phrasing alone. The reader arrives at the conclusion because the evidence compels it — the question just declines to spell out what's already obvious.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: 'William Shakespeare, "The Merchant of Venice" (c. 1596–1598)',
+        content: `In Act III, Scene I, Shylock answers his tormentors' contempt not with a direct claim ("I am as human as you") but with a chain of rhetorical questions built from concrete, undeniable particulars:
+
+&gt; "Hath not a Jew eyes? hath not a Jew hands, organs, dimensions, senses, affections, passions? fed with the same food, hurt with the same weapons, subject to the same diseases, healed by the same means, warmed and cooled by the same winter and summer as a Christian is? If you prick us, do we not bleed? if you tickle us, do we not laugh? if you poison us, do we not die? and if you wrong us, shall we not revenge?"
+
+Each question up through "do we not die?" has exactly one conceivable answer — yes — and Shakespeare never lets Shylock state it, because stating it would be weaker than forcing the Christian characters onstage, and the audience watching, to supply it themselves.
+
+Note the structural risk this passage also demonstrates: the final question, "and if you wrong us, shall we not revenge?", is not nearly as self-evident as the ones before it — revenge doesn't follow from shared humanity as automatically as bleeding does. Shylock is counting on the momentum of five unimpeachable questions to carry a sixth, far more contestable one past an audience no longer pausing to check each step. That's erotema's central danger as well as its central power: stacked skillfully, undeniable questions can smuggle in a less certain one riding their momentum.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Using Erotema",
+        content: `- Is the answer your question implies actually obvious to this audience, given what you've established — or are you hoping the question mark alone will make it seem obvious?
+- Could a fair-minded reader honestly answer differently than you intend? If so, this isn't functioning as a rhetorical question yet.
+- Have you built the necessary context immediately before the question, rather than asking it in place of building that context?
+- Are you using the device sparingly enough that each instance still lands, rather than turning routine claims into questions out of habit?
+- If a less certain claim is riding on the momentum of more obvious ones, would it still hold up if you slowed down and asked it on its own?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Write a 200-350 word persuasive passage on a topic of your choosing that uses at least two genuine rhetorical questions (erotema) — questions whose implied answer you never state directly, because the material immediately before each question has already made that answer unavoidable.",
+        instructions:
+          "Do not answer any of your questions in your own voice — the moment you do, the device becomes hypophora rather than erotema. Each question should follow specific, concrete material that makes its implied answer feel forced rather than merely asserted.",
+        minWords: 200,
+        maxWords: 350,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Genuine Rhetorical Questions",
+            description:
+              "Does the passage pose at least two questions with a single, unmistakable implied answer, left unstated rather than answered explicitly by the writer?",
+          },
+          {
+            order: 2,
+            key: "earned_implication",
+            label: "Answer Actually Earned",
+            description:
+              "Is each question's implied answer forced by specific material established immediately beforehand, rather than merely asserted by the question's tone?",
+          },
+          {
+            order: 3,
+            key: "distinct_from_hypophora",
+            label: "Left Unanswered, Used Sparingly",
+            description:
+              "Does the writer avoid explicitly answering any of the questions (which would make it hypophora), and are the questions used selectively rather than as a substitute for ordinary argument?",
+          },
+          {
+            order: 4,
+            key: "writing_quality",
+            label: "General Writing Quality",
+            description: "Is the prose clear, well organized, and free of unnecessary filler?",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "argument-from-analogy",
+    title: "Argument from Analogy: Reasoning from What Alike Cases Share",
+    subtitle: "Transferring a conclusion from a settled case to a disputed one by showing they match in the ways that matter",
+    summary:
+      "How analogical argument claims that two cases resembling each other in relevant respects should be judged alike — and how to test whether an analogy actually holds or merely looks alike on the surface.",
+    order: 6,
+    categorySlug: "argumentation",
+    deviceSlugs: ["argument-from-analogy"],
+    sections: [
+      {
+        order: 1,
+        kind: SectionKind.EXPLANATION,
+        heading: "More Than a Comparison",
+        content: `Argument from analogy is often mistaken for a decorative comparison — the kind of vivid parallel a metaphor or simile draws to make an abstract idea easier to picture. It is not the same move. A metaphor doesn't need to be literally defensible; nobody expects "time is a thief" to survive scrutiny of whether time actually steals anything. Argument from analogy makes an actual truth claim: it asserts that because two cases share the properties that matter, whatever conclusion is true of the well-established case should also be true of the disputed one. That claim can be logically strong or weak, and — unlike a metaphor — it can be directly attacked.
+
+The structure is straightforward: case A has properties that generate conclusion C; case B shares those same properties; therefore C likely holds for case B too. The entire argument turns on one word: relevant. Two cases can resemble each other in countless incidental ways while differing in the one property that actually produced the conclusion in the first place. An analogy that trades on incidental resemblance while ignoring a difference in the load-bearing property is not a weaker version of the argument — it is a different, invalid argument wearing the same shape.`,
+      },
+      {
+        order: 2,
+        kind: SectionKind.EXPLANATION,
+        heading: "Testing Whether an Analogy Holds",
+        content: `To build or evaluate an analogical argument, first isolate exactly which property of the source case is doing the logical work — the one that, if absent, would change the conclusion. Then check whether the target case actually shares that specific property, rather than a merely superficial resemblance. The strongest attack on an analogy is a disanalogy: a specific, relevant difference between the two cases that the arguer's parallel glossed over.
+
+Weak: "Banning violent video games is like banning violent novels — both are just fiction, so if novels are protected, games should be too."
+This asserts the analogy without defending it against the most obvious disanalogy: games are interactive in a way novels are not, and the argument never explains why that difference doesn't matter to the conclusion. It simply declares the cases alike and moves on.
+
+Strong: "Like novels, violent video games are fictional depictions, consumed voluntarily, with no actual victim — and those are precisely the properties courts have relied on to extend protection to violent novels, not the medium's format. Interactivity changes how a work of fiction is experienced; it doesn't convert a depicted killing into an actual one, which is the distinction the novel cases were drawn on."
+This version names the specific property that did the logical work in the source case (fictional depiction, voluntary consumption, no actual victim), confirms the target shares exactly that property, and directly addresses the obvious disanalogy (interactivity) instead of hoping no one raises it.`,
+      },
+      {
+        order: 3,
+        kind: SectionKind.CLASSICAL_EXAMPLE,
+        heading: "Justice Oliver Wendell Holmes, Schenck v. United States (1919)",
+        content: `Writing for a unanimous Supreme Court upholding the conviction of a man who had mailed anti-draft pamphlets during World War I, Holmes needed to explain why speech ordinarily protected by the First Amendment could be punished in this instance. He reached for an analogy rather than a rule:
+
+&gt; "The most stringent protection of free speech would not protect a man in falsely shouting fire in a theatre and causing a panic."
+
+The analogy claims that Schenck's pamphlets and a false shout of "fire" share the property that matters: both are speech acts whose danger comes from the circumstances of their utterance rather than the truth or value of their content, and free-speech protection has never extended to that category.
+
+The line became one of the most quoted sentences in American law, but it has also been one of the most contested analogies, including by Holmes himself, who narrowed his own reasoning only months later in his dissent in *Abrams v. United States*. Critics have pointed to exactly the disanalogy the earlier weak example illustrates: a false shout of fire causes immediate physical panic with no intervening choice by anyone else, while a pamphlet urging resistance to the draft only leads to harm, if at all, through the independent, deliberative choices of its readers — a much longer and more breakable causal chain. Whether the analogy holds turns entirely on whether that difference is relevant to the conclusion, which is exactly the question any argument from analogy has to survive.`,
+      },
+      {
+        order: 4,
+        kind: SectionKind.SUMMARY,
+        heading: "Checklist: Argument from Analogy",
+        content: `- Have you identified the specific property of the source case that actually generates its conclusion, rather than just gesturing at a general resemblance?
+- Does the target case genuinely share that property, or only a superficial similarity to it?
+- Have you anticipated the most obvious disanalogy a skeptical reader would raise, and addressed it directly?
+- Would your argument survive being restated as "A and B are alike in respect X, and X is what matters here" — or does it quietly rely on unrelated similarities?
+- If someone pointed out a difference between your two cases, is your answer to why that difference doesn't matter, or do you not have one yet?`,
+      },
+    ],
+    prompts: [
+      {
+        order: 1,
+        prompt:
+          "Choose a settled case (a law, precedent, policy, or widely accepted judgment) and a disputed case you want to argue should be treated the same way. Write a 250-450 word argument from analogy that identifies the specific property the settled case's conclusion depends on, shows your disputed case shares that property, and directly addresses the most obvious way the two cases differ.",
+        instructions:
+          "Name the load-bearing property explicitly rather than leaving the resemblance implicit, and address at least one real disanalogy instead of ignoring it.",
+        minWords: 250,
+        maxWords: 450,
+        criteria: [
+          {
+            order: 1,
+            key: "device_usage",
+            label: "Genuine Argument from Analogy",
+            description:
+              "Does the passage explicitly identify a property shared between the two cases and argue that this shared property, not mere surface resemblance, transfers the conclusion from one to the other?",
+          },
+          {
+            order: 2,
+            key: "relevant_similarity",
+            label: "Relevant Rather Than Superficial Similarity",
+            description:
+              "Is the identified shared property actually the one that generates the conclusion in the settled case, rather than an incidental or superficial point of resemblance?",
+          },
+          {
+            order: 3,
+            key: "addresses_disanalogy",
+            label: "Confronts the Obvious Disanalogy",
+            description:
+              "Does the passage acknowledge and directly address the most obvious way the two cases differ, rather than ignoring it or hoping the reader won't notice?",
           },
           {
             order: 4,

@@ -66,11 +66,11 @@ export default function RootLayout({
           <div className="flex items-center justify-between gap-4 px-6 py-4">
             <Link href="/" className="flex items-center gap-2 text-foreground">
               <ColumnGlyph className="text-gold" />
-              <span className="font-display text-lg tracking-wide">Rhetoripendium</span>
+              <span className="hidden font-display text-lg tracking-wide sm:inline">Rhetoripendium</span>
             </Link>
             <div className="flex items-center gap-3">
-              <ThemeToggle />
               <AuthHeader />
+              <ThemeToggle />
             </div>
           </div>
           <GoldRule />
