@@ -8,7 +8,7 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <div className={`rounded-xl border border-border bg-surface shadow-sm ${className}`}>
+    <div className={`texture-paper rounded-xl border border-border bg-surface shadow-sm ${className}`}>
       {children}
     </div>
   );

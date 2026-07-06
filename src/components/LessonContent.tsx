@@ -40,7 +40,7 @@ export function LessonContent({ sections }: { sections: SectionView[] }) {
               <section
                 className={
                   section.kind === "SUMMARY"
-                    ? "rounded-lg border border-border bg-surface p-5"
+                    ? "texture-paper rounded-lg border border-border bg-surface p-5"
                     : ""
                 }
               >
