@@ -62,7 +62,7 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>
-        <header>
+        <header className="sticky md:static top-0 z-10 bg-background">
           <div className="flex items-center justify-between gap-4 px-6 py-4">
             <Link href="/" className="flex items-center gap-2 text-foreground">
               <ColumnGlyph className="text-gold" />
