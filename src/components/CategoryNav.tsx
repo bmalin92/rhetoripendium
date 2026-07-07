@@ -63,7 +63,7 @@ export function CategoryNav({ categories }: { categories: CategoryNavItem[] }) {
   return (
     <nav
       aria-label="Lesson categories"
-      className="sticky top-0 z-10 -mx-6 border-b border-border bg-background/95 backdrop-blur sm:-mx-10"
+      className="sticky top-17 z-10 md:top-0 -mx-6 border-b border-border bg-background/95 backdrop-blur sm:-mx-10"
     >
       <div className="relative">
         <div ref={scrollerRef} className="no-scrollbar flex gap-2 overflow-x-auto px-6 py-3 sm:px-10">
@@ -71,7 +71,7 @@ export function CategoryNav({ categories }: { categories: CategoryNavItem[] }) {
             <a
               key={category.slug}
               href={`#category-${category.slug}`}
-              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+              className={`flex items-center md:items-auto w-48 md:w-auto shrink-0 rounded-full border px-3 py-1.5 pl-4 md:pl-3 text-xs font-medium transition ${
                 activeSlug === category.slug
                   ? "border-gold bg-gold/10 text-foreground"
                   : "border-border bg-surface text-muted hover:border-gold/50"
